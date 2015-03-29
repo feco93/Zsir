@@ -148,12 +148,12 @@ public class Controller {
     public void start() {
         game = new Game();
         initContent();
-        gameLoop();
+        initTimeLine();
         timeline.play();
         timer.start();
     }
 
-    private void gameLoop() {
+    private void initTimeLine() {
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(Duration.millis(400), (ActionEvent event) -> {
