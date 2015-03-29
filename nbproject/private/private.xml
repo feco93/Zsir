@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Card.java</file>
             <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Controller.java</file>
             <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Human.java</file>
-            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/mainWindow.fxml</file>
-            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Main.java</file>
-            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/score.fxml</file>
-            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Game.java</file>
+            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Player.java</file>
             <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Deck.java</file>
-            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/style.css</file>
             <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/Computer.java</file>
+            <file>file:/C:/Users/Feco/Documents/NetBeansProjects/Zsir/src/hu/zsir/layout.fxml</file>
         </group>
     </open-files>
 </project-private>
