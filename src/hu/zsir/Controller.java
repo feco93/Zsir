@@ -5,8 +5,6 @@ package hu.zsir;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -64,22 +62,16 @@ public class Controller {
 
     @FXML
     private void check(ActionEvent event) {
-        if (currentPlayer instanceof Human && playedCard.size() > 0 && playedCard.size() % 2 == 0) {
-            currentPlayer.setPassed(true);
-            swapPlayers();
+        if (game.getCurrentPlayer() instanceof Human &&
+                game.getPlayedCard().size() > 0 && game.getPlayedCard().size() % 2 == 0) {
+            game.getCurrentPlayer().setPassed(true);
+            game.swapPlayers();
         }
     }
 
-    Deck deck;
-    Player playerOne;
-    Player playerTwo;
-    Player currentPlayer;
-    Player otherPlayer;
-    Card callingCard;
-    List<Card> playedCard;
+    Game game;
     Timeline timeline;
     AnimationTimer timer;
-    private boolean gameOver;
 
     private ImageView[] playerOneCardViews;
     private ImageView[] playerTwoCardViews;
@@ -87,8 +79,8 @@ public class Controller {
     private void initContent() {
         playerOneCardViews = new ImageView[]{player11, player12, player13, player14};
         playerTwoCardViews = new ImageView[]{player21, player22, player23, player24};
-        updateCardViews(playerOneCardViews, playerOne);
-        updateCardViews(playerTwoCardViews, playerTwo);
+        updateCardViews(playerOneCardViews, game.getPlayerOne());
+        updateCardViews(playerTwoCardViews, game.getPlayerTwo());
         callingCardView.setVisible(false);
         topCardView.setVisible(false);
     }
@@ -118,15 +110,15 @@ public class Controller {
     }
 
     private void showPlayedCards() {
-        if (callingCard != null) {
+        if (game.getCallingCard() != null) {
             callingCardView.setVisible(true);
-            callingCardView.setImage(callingCard.getCardImage());
+            callingCardView.setImage(game.getCallingCard().getCardImage());
         } else {
             callingCardView.setVisible(false);
         }
-        if (playedCard.size() > 1) {
+        if (game.getPlayedCard().size() > 1) {
             topCardView.setVisible(true);
-            topCardView.setImage(playedCard.get(playedCard.size()-1).getCardImage());
+            topCardView.setImage(game.getPlayedCard().get(game.getPlayedCard().size() - 1).getCardImage());
         } else {
             topCardView.setVisible(false);
         }
@@ -138,7 +130,7 @@ public class Controller {
         Text text = new Text();
         text.setFont(new Font(22));
         text.setTextAlignment(TextAlignment.CENTER);
-        text.setText("Your score is: " + String.valueOf(playerOne.getScore()));
+        text.setText("Your score is: " + String.valueOf(game.getPlayerOne().getScore()));
         HBox box = new HBox();
         box.setAlignment(Pos.CENTER);
         box.getChildren().add(text);
@@ -154,20 +146,7 @@ public class Controller {
     }
 
     public void start() {
-        gameOver = false;
-        deck = new Deck();
-        callingCard = null;
-        playedCard = new ArrayList<>();
-        List<Card> playerOneCards = new ArrayList<>();
-        List<Card> playerTwoCards = new ArrayList<>();
-        for (int i = 0; i < 4; ++i) {
-            playerOneCards.add(deck.drawCard());
-            playerTwoCards.add(deck.drawCard());
-        }
-        playerOne = new Human(playerOneCards);
-        playerTwo = new Computer(playerTwoCards);
-        currentPlayer = playerOne;
-        otherPlayer = playerTwo;
+        game = new Game();
         initContent();
         gameLoop();
         timeline.play();
@@ -178,63 +157,7 @@ public class Controller {
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(Duration.millis(400), (ActionEvent event) -> {
-            if (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty()) {
-                if (playedCard.size() > 0 && playedCard.size() % 2 == 0
-                        && playedCard.get(playedCard.size() - 1).number != callingCard.number
-                        && playedCard.get(playedCard.size() - 1).number != Number.HET) {
-                    beatCards();
-                }
-                if (currentPlayer instanceof Human) {
-                    Human human = (Human) currentPlayer;
-                    if (callingCard == null) {
-                        if (human.getSelectedCard() != null) {
-                            callingCard = human.putCard();
-                            playedCard.add(callingCard);
-                            swapPlayers();
-                        }
-                    } else if (playedCard.size() % 2 == 1) {
-                        if (human.getSelectedCard() != null) {
-                            playedCard.add(human.putCard());
-                            swapPlayers();
-                        }
-                    } else if (otherPlayer.isPassed()) {
-                        beatCards();
-                        otherPlayer.setPassed(false);
-                    } else if (human.canPut(callingCard)) {
-                        if (human.getSelectedCard() != null && (human.getSelectedCard().number == Number.HET
-                                || human.getSelectedCard().number == callingCard.number)) {
-                            playedCard.add(human.putCard());
-                            swapPlayers();
-                        }
-                    } else {
-                        currentPlayer.setPassed(true);
-                        swapPlayers();
-                    }
-                } else {
-                    Computer computer = (Computer) currentPlayer;
-                    if (callingCard == null) {
-                        callingCard = computer.putCard();
-                        playedCard.add(callingCard);
-                        swapPlayers();
-                    } else if (playedCard.size() % 2 == 1) {
-                        playedCard.add(computer.putCard());
-                        swapPlayers();
-                    } else if (otherPlayer.isPassed()) {
-                        beatCards();
-                        otherPlayer.setPassed(false);
-                    } else if (computer.canPut(callingCard)) {
-                        playedCard.add(computer.putCard(callingCard));
-                        swapPlayers();
-                    } else {
-                        currentPlayer.setPassed(true);
-                        swapPlayers();
-                    }
-                }
-            } else {
-                clearTable();
-                gameOver = true;
-            }
-
+            game.gameLoop();
         });
         timeline.getKeyFrames().add(kf);
         timer = new AnimationTimer() {
@@ -242,9 +165,9 @@ public class Controller {
             @Override
             public void handle(long now) {
                 showPlayedCards();
-                updateCardViews(playerOneCardViews, playerOne);
-                updateCardViews(playerTwoCardViews, playerTwo);
-                if (gameOver) {
+                updateCardViews(playerOneCardViews, game.getPlayerOne());
+                updateCardViews(playerTwoCardViews, game.getPlayerTwo());
+                if (game.isGameOver()) {
                     timeline.stop();
                     stop();
                     showScoreDialog();
@@ -252,25 +175,4 @@ public class Controller {
             }
         };
     }
-
-    private void clearTable() {
-        callingCard = null;
-        playedCard.clear();
-    }
-
-    private void swapPlayers() {
-        Player temp = currentPlayer;
-        currentPlayer = otherPlayer;
-        otherPlayer = temp;
-    }
-
-    private void beatCards() {
-        currentPlayer.beat(playedCard);
-        if (!deck.isEmpty()) {
-            deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
-            deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
-        }
-        clearTable();
-    }
-
 }

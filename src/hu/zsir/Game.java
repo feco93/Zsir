@@ -3,6 +3,7 @@ package hu.zsir;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,56 +15,133 @@ import java.util.List;
  */
 public class Game {
 
-    Deck deck;
-    Human playerOne;
-    Human playerTwo;
-    Human currentPlayer;
-    Human otherPlayer;
-    Card callingCard;
-    List<Card> playedCard;
+    private Deck deck;
+    private Player playerOne;
+    private Player playerTwo;
+    private Player currentPlayer;
+    private Player otherPlayer;
+    private Card callingCard;
+    private List<Card> playedCard;
+    private boolean gameOver;
 
-    private void swapPlayers() {
-        Human temp = currentPlayer;
-        currentPlayer = otherPlayer;
-        otherPlayer = temp;
-    }
-
-    public void newGame() {
+    public Game() {
+        gameOver = false;
         deck = new Deck();
+        callingCard = null;
+        playedCard = new ArrayList<>();
         List<Card> playerOneCards = new ArrayList<>();
-        for (int i = 0; i < 4; ++i) {
-            playerOneCards.add(deck.drawCard());
-        }
-        playerOne = new Human(playerOneCards);
         List<Card> playerTwoCards = new ArrayList<>();
         for (int i = 0; i < 4; ++i) {
+            playerOneCards.add(deck.drawCard());
             playerTwoCards.add(deck.drawCard());
         }
-        playerTwo = new Human(playerTwoCards);
+        playerOne = new Human(playerOneCards);
+        playerTwo = new Computer(playerTwoCards);
         currentPlayer = playerOne;
         otherPlayer = playerTwo;
     }
 
     public void gameLoop() {
-        
-        while (true) {
-            if (deck.isEmpty()) {
-                break;
-            } else if (callingCard == null && currentPlayer.selectedCard != null) {
-                callingCard = currentPlayer.putCard();
-                playedCard.add(callingCard);
+        if (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty()) {
+            if (playedCard.size() > 0 && playedCard.size() % 2 == 0
+                    && playedCard.get(playedCard.size() - 1).number != callingCard.number
+                    && playedCard.get(playedCard.size() - 1).number != Number.HET) {
+                beatCards();
             }
-            /*else if (callingCard != null && currentPlayer.canPut(callingCard) && currentPlayer.selectedCard != null) {
-             playedCard.add(currentPlayer.putCard());
-             } 
-             if (otherPlayer.passed) {
-             currentPlayer.beat(playedCard);
-             currentPlayer.drawCards(deck);
-             otherPlayer.drawCards(deck);
-             }
-             swapPlayers();*/
+            if (currentPlayer instanceof Human) {
+                Human human = (Human) currentPlayer;
+                if (callingCard == null) {
+                    if (human.getSelectedCard() != null) {
+                        callingCard = human.putCard();
+                        playedCard.add(callingCard);
+                        swapPlayers();
+                    }
+                } else if (playedCard.size() % 2 == 1) {
+                    if (human.getSelectedCard() != null) {
+                        playedCard.add(human.putCard());
+                        swapPlayers();
+                    }
+                } else if (otherPlayer.isPassed()) {
+                    beatCards();
+                    otherPlayer.setPassed(false);
+                } else if (human.canPut(callingCard)) {
+                    if (human.getSelectedCard() != null && (human.getSelectedCard().number == Number.HET
+                            || human.getSelectedCard().number == callingCard.number)) {
+                        playedCard.add(human.putCard());
+                        swapPlayers();
+                    }
+                } else {
+                    currentPlayer.setPassed(true);
+                    swapPlayers();
+                }
+            } else {
+                Computer computer = (Computer) currentPlayer;
+                if (callingCard == null) {
+                    callingCard = computer.putCard();
+                    playedCard.add(callingCard);
+                    swapPlayers();
+                } else if (playedCard.size() % 2 == 1) {
+                    playedCard.add(computer.putCard());
+                    swapPlayers();
+                } else if (otherPlayer.isPassed()) {
+                    beatCards();
+                    otherPlayer.setPassed(false);
+                } else if (computer.canPut(callingCard)) {
+                    playedCard.add(computer.putCard(callingCard));
+                    swapPlayers();
+                } else {
+                    currentPlayer.setPassed(true);
+                    swapPlayers();
+                }
+            }
+        } else {
+            clearTable();
+            gameOver = true;
         }
-
     }
 
+    private void clearTable() {
+        callingCard = null;
+        playedCard.clear();
+    }
+
+    public void swapPlayers() {
+        Player temp = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = temp;
+    }
+
+    private void beatCards() {
+        currentPlayer.beat(playedCard);
+        if (!deck.isEmpty()) {
+            deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
+            deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
+        }
+        clearTable();
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
+
+    public Card getCallingCard() {
+        return callingCard;
+    }
+
+    public List<Card> getPlayedCard() {
+        return playedCard;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+    
 }
