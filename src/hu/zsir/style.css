@@ -8,6 +8,16 @@ and open the template in the editor.
     Author     : Feco
 */
 
-#anchorpane {
+#mainPane {
     -fx-background-color: green;
+}
+
+#scorePane {
+    -fx-background-color: #c5780c;
+}
+
+#scoreText {
+    -fx-font-size: 42;
+    -fx-font-weight: bold;
+    -fx-fill: blue;
 }

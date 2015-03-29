@@ -5,21 +5,20 @@ package hu.zsir;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -49,6 +48,8 @@ public class Controller {
     private ImageView callingCardView;
     @FXML
     private ImageView topCardView;
+    @FXML
+    private Text scoreText;
 
     @FXML
     private void newGame(ActionEvent event) {
@@ -62,8 +63,8 @@ public class Controller {
 
     @FXML
     private void check(ActionEvent event) {
-        if (game.getCurrentPlayer() instanceof Human &&
-                game.getPlayedCard().size() > 0 && game.getPlayedCard().size() % 2 == 0) {
+        if (game.getCurrentPlayer() instanceof Human
+                && game.getPlayedCard().size() > 0 && game.getPlayedCard().size() % 2 == 0) {
             game.getCurrentPlayer().setPassed(true);
             game.swapPlayers();
         }
@@ -125,24 +126,20 @@ public class Controller {
     }
 
     private void showScoreDialog() {
-        Stage dialogStage = new Stage();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("score.fxml"));
+            fxmlLoader.setController(this);
+            Parent root  = fxmlLoader.load();
+            Stage dialogStage = new Stage();
+            scoreText.setText("Your score is: "+String.valueOf(game.getPlayerOne().getScore()));
+            Scene scene = new Scene(root);
+            dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
+            dialogStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        Text text = new Text();
-        text.setFont(new Font(22));
-        text.setTextAlignment(TextAlignment.CENTER);
-        text.setText("Your score is: " + String.valueOf(game.getPlayerOne().getScore()));
-        HBox box = new HBox();
-        box.setAlignment(Pos.CENTER);
-        box.getChildren().add(text);
-        Parent root = new Pane(box);
-        Scene scene = new Scene(root);
-
-        dialogStage.setMinWidth(300);
-        dialogStage.setMinHeight(300);
-        dialogStage.setTitle("Score");
-        dialogStage.setResizable(false);
-        dialogStage.setScene(scene);
-        dialogStage.show();
     }
 
     public void start() {

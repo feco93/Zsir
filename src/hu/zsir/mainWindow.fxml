@@ -22,7 +22,7 @@
         </MenuBar>
     </top>
     <center>
-        <AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fx:id="player11" fitHeight="186.0" fitWidth="112.0" layoutX="160.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
               
