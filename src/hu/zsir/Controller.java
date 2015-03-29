@@ -98,8 +98,7 @@ public class Controller {
         for (Card card : player.cards) {
             Image cardImage;
             if (player instanceof Human) {
-                String cardName = card.toString();
-                cardImage = new Image("resources/" + cardName + ".jpg");
+                cardImage = card.getCardImage();
                 cardViews[cardIndex].setOnMouseClicked(event -> {
                     Human human = (Human) player;
                     human.setSelectedCard(card);
@@ -121,17 +120,13 @@ public class Controller {
     private void showPlayedCards() {
         if (callingCard != null) {
             callingCardView.setVisible(true);
-            String cardName = callingCard.toString();
-            Image cardImage = new Image("resources/" + cardName + ".jpg");
-            callingCardView.setImage(cardImage);
+            callingCardView.setImage(callingCard.getCardImage());
         } else {
             callingCardView.setVisible(false);
         }
         if (playedCard.size() > 1) {
             topCardView.setVisible(true);
-            String cardName = playedCard.get(playedCard.size() - 1).toString();
-            Image cardImage = new Image("resources/" + cardName + ".jpg");
-            topCardView.setImage(cardImage);
+            topCardView.setImage(playedCard.get(playedCard.size()-1).getCardImage());
         } else {
             topCardView.setVisible(false);
         }
