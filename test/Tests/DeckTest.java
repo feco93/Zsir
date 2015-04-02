@@ -70,12 +70,12 @@ public class DeckTest {
     @Test
     public void complexDrawing() {
         drawCard(2, 3, 4);
-        deck.drawCard(3, playerOne);
-        deck.drawCard(3, playerTwo);
+        deck.drawCard(2, playerOne);
+        deck.drawCard(2, playerTwo);
         assertEquals(8, deck.getDrawCounter());
+        assertEquals(4, deck.getReaminingCards());
+        deck.drawCard(3, playerOne);
         assertEquals(2, deck.getReaminingCards());
-        deck.drawCard(4, playerOne);
-        assertEquals(1, deck.getReaminingCards());
         deck.drawCard(4, playerTwo);
         assertTrue(deck.isEmpty());
     }

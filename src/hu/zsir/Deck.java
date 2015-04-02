@@ -49,7 +49,7 @@ public class Deck {
     public void drawCard(int counter, Player player) {
         drawCounter++;
         if (drawCounter % 2 == 1) {
-            if (counter >= reaminingCards) {
+            if (counter * 2 >= reaminingCards) {
                 counter = reaminingCards / 2;
             }
         } else {

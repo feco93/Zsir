@@ -1,7 +1,5 @@
 package hu.zsir;
 
-import javafx.scene.image.Image;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,12 +15,10 @@ public class Card {
 
     Number number;
     Suit suit;
-    Image cardImage;
 
     public Card(Number number, Suit suit) {
         this.number = number;
         this.suit = suit;
-        setCardImage();
     }
 
     public Number getNumber() {
@@ -44,15 +40,6 @@ public class Card {
     @Override
     public String toString() {
         return suit.toString().toLowerCase()+"_"+number.toString().toLowerCase();
-    }
-
-    public Image getCardImage() {
-        return cardImage;
-    }
-
-    private void setCardImage() {
-        cardImage = new Image("resources/" + this.toString() + ".jpg");
-    }
-    
+    }   
     
 }

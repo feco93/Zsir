@@ -5,6 +5,7 @@
  */
 package hu.zsir;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,14 +16,39 @@ public abstract class Player {
 
     List<Card> cards;
     boolean passed;
+    boolean beated;
+    boolean canput;
     int score;
+    Card selectedCard;
 
-    public abstract Card putCard();
+    public abstract void nextDecision(List<Card> cardOnTable, Deck deck);
 
     public Player(List<Card> cards) {
         this.cards = cards;
         passed = false;
+        canput = true;
         score = 0;
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
+
+    public void putCard(List<Card> cardOnTable) {
+        Iterator<Card> cardIterator = cards.iterator();
+        while (cardIterator.hasNext()) {
+            if (cardIterator.next().equals(getSelectedCard())) {
+                cardIterator.remove();
+            }
+        }
+        Card toPut = getSelectedCard();
+        cardOnTable.add(toPut);
+        setSelectedCard(null);
+        setPassed(true);
     }
 
     public boolean isPassed() {
@@ -39,6 +65,7 @@ public abstract class Player {
                 score++;
             }
         }
+        setBeated(true);
     }
 
     public boolean canPut(Card callingCard) {
@@ -48,6 +75,12 @@ public abstract class Player {
             }
         }
         return false;
+    }
+
+    public boolean canBeat(List<Card> cardOnTable) {
+        return cardOnTable.size() > 0 && cardOnTable.size() % 2 == 0
+                && cardOnTable.get(cardOnTable.size() - 1).number != cardOnTable.get(0).number
+                && cardOnTable.get(cardOnTable.size() - 1).number != Number.HET;
     }
 
     public void drawCard(Card card) {
@@ -61,4 +94,21 @@ public abstract class Player {
     public int getScore() {
         return score;
     }
+
+    public boolean isBeated() {
+        return beated;
+    }
+
+    public void setBeated(boolean beated) {
+        this.beated = beated;
+    }
+
+    public boolean isCanput() {
+        return canput;
+    }
+
+    public void setCanput(boolean canput) {
+        this.canput = canput;
+    }
+
 }

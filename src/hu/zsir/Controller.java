@@ -65,8 +65,7 @@ public class Controller {
     private void check(ActionEvent event) {
         if (game.getCurrentPlayer() instanceof Human
                 && game.getPlayedCard().size() > 0 && game.getPlayedCard().size() % 2 == 0) {
-            game.getCurrentPlayer().setPassed(true);
-            game.swapPlayers();
+            game.getCurrentPlayer().setCanput(false);
         }
     }
 
@@ -91,7 +90,7 @@ public class Controller {
         for (Card card : player.cards) {
             Image cardImage;
             if (player instanceof Human) {
-                cardImage = card.getCardImage();
+                cardImage = new Image("resources/"+card.toString()+".jpg");
                 cardViews[cardIndex].setOnMouseClicked(event -> {
                     Human human = (Human) player;
                     human.setSelectedCard(card);
@@ -111,15 +110,19 @@ public class Controller {
     }
 
     private void showPlayedCards() {
-        if (game.getCallingCard() != null) {
+        if (game.getBottomCard() != null) {
             callingCardView.setVisible(true);
-            callingCardView.setImage(game.getCallingCard().getCardImage());
+            Image cardImage = new Image("resources/"+game.getBottomCard().toString()+".jpg");
+            callingCardView.setImage(cardImage);
         } else {
             callingCardView.setVisible(false);
         }
         if (game.getPlayedCard().size() > 1) {
             topCardView.setVisible(true);
-            topCardView.setImage(game.getPlayedCard().get(game.getPlayedCard().size() - 1).getCardImage());
+            Image cardImage = 
+                    new Image("resources/"+game.getPlayedCard().
+                            get(game.getPlayedCard().size() - 1).toString()+".jpg");
+            topCardView.setImage(cardImage);
         } else {
             topCardView.setVisible(false);
         }

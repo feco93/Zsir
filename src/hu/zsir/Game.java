@@ -15,20 +15,18 @@ import java.util.List;
  */
 public class Game {
 
-    private Deck deck;
-    private Player playerOne;
-    private Player playerTwo;
+    private final Deck deck;
+    private final Player playerOne;
+    private final Player playerTwo;
     private Player currentPlayer;
     private Player otherPlayer;
-    private Card callingCard;
-    private List<Card> playedCard;
+    private final List<Card> cardOnTable;
     private boolean gameOver;
 
     public Game() {
         gameOver = false;
         deck = new Deck();
-        callingCard = null;
-        playedCard = new ArrayList<>();
+        cardOnTable = new ArrayList<>();
         List<Card> playerOneCards = new ArrayList<>();
         List<Card> playerTwoCards = new ArrayList<>();
         for (int i = 0; i < 4; ++i) {
@@ -42,82 +40,41 @@ public class Game {
     }
 
     public void gameLoop() {
-        if (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty()) {
-            if (playedCard.size() > 0 && playedCard.size() % 2 == 0
-                    && playedCard.get(playedCard.size() - 1).number != callingCard.number
-                    && playedCard.get(playedCard.size() - 1).number != Number.HET) {
-                beatCards();
+        if (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty() || !cardOnTable.isEmpty()) {
+            if (currentPlayer.isPassed()) {
+                currentPlayer.setPassed(false);
+                swapPlayers();
             }
-            if (currentPlayer instanceof Human) {
-                Human human = (Human) currentPlayer;
-                if (callingCard == null) {
-                    if (human.getSelectedCard() != null) {
-                        callingCard = human.putCard();
-                        playedCard.add(callingCard);
-                        swapPlayers();
-                    }
-                } else if (playedCard.size() % 2 == 1) {
-                    if (human.getSelectedCard() != null) {
-                        playedCard.add(human.putCard());
-                        swapPlayers();
-                    }
-                } else if (otherPlayer.isPassed()) {
-                    beatCards();
-                    otherPlayer.setPassed(false);
-                } else if (human.canPut(callingCard)) {
-                    if (human.getSelectedCard() != null && (human.getSelectedCard().number == Number.HET
-                            || human.getSelectedCard().number == callingCard.number)) {
-                        playedCard.add(human.putCard());
-                        swapPlayers();
-                    }
-                } else {
-                    currentPlayer.setPassed(true);
-                    swapPlayers();
+            else if(!currentPlayer.isCanput()) {
+                currentPlayer.setCanput(true);
+                swapPlayers();
+                currentPlayer.beat(cardOnTable);
+            }
+            else {
+                currentPlayer.nextDecision(cardOnTable, deck);
+            }
+            if (currentPlayer.isBeated()) {
+                if (!deck.isEmpty()) {
+                    deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
+                    deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
                 }
-            } else {
-                Computer computer = (Computer) currentPlayer;
-                if (callingCard == null) {
-                    callingCard = computer.putCard();
-                    playedCard.add(callingCard);
-                    swapPlayers();
-                } else if (playedCard.size() % 2 == 1) {
-                    playedCard.add(computer.putCard());
-                    swapPlayers();
-                } else if (otherPlayer.isPassed()) {
-                    beatCards();
-                    otherPlayer.setPassed(false);
-                } else if (computer.canPut(callingCard)) {
-                    playedCard.add(computer.putCard(callingCard));
-                    swapPlayers();
-                } else {
-                    currentPlayer.setPassed(true);
-                    swapPlayers();
-                }
+                currentPlayer.setBeated(false);
+                clearTable();
             }
         } else {
-            clearTable();
             gameOver = true;
+            clearTable();
         }
     }
 
     private void clearTable() {
-        callingCard = null;
-        playedCard.clear();
+        cardOnTable.clear();
     }
 
     public void swapPlayers() {
         Player temp = currentPlayer;
         currentPlayer = otherPlayer;
         otherPlayer = temp;
-    }
-
-    private void beatCards() {
-        currentPlayer.beat(playedCard);
-        if (!deck.isEmpty()) {
-            deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
-            deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
-        }
-        clearTable();
     }
 
     public boolean isGameOver() {
@@ -132,16 +89,19 @@ public class Game {
         return playerTwo;
     }
 
-    public Card getCallingCard() {
-        return callingCard;
-    }
-
     public List<Card> getPlayedCard() {
-        return playedCard;
+        return cardOnTable;
     }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-    
+
+    public Card getBottomCard() {
+        if (cardOnTable.size() > 0) {
+            return cardOnTable.get(0);
+        } else {
+            return null;
+        }
+    }
 }

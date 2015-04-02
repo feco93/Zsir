@@ -14,31 +14,28 @@ import java.util.List;
  */
 public class Human extends Player {
 
-    Card selectedCard;
-
-    public Card getSelectedCard() {
-        return selectedCard;
-    }
-
-    public void setSelectedCard(Card selectedCard) {
-        this.selectedCard = selectedCard;
-    }
-
     public Human(List<Card> cards) {
         super(cards);
     }
 
-    @Override
-    public Card putCard() {
-        Iterator<Card> cardIterator = cards.iterator();
-        while (cardIterator.hasNext()) {
-            if (cardIterator.next().equals(getSelectedCard())) {
-                cardIterator.remove();
-            }
-        }
-        Card toPut = getSelectedCard();
-        setSelectedCard(null);
-        return toPut;
-    }
+    
 
+    @Override
+    public void nextDecision(List<Card> cardOnTable, Deck deck) {
+        if (canBeat(cardOnTable)) {
+            beat(cardOnTable);
+        } else if ((cardOnTable.isEmpty() || cardOnTable.size() % 2 == 1)) {
+            if (getSelectedCard() != null) {
+                putCard(cardOnTable);
+            }
+        } else if (canPut(cardOnTable.get(0))) {
+            if (getSelectedCard() != null
+                    && (getSelectedCard().number == cardOnTable.get(0).number || getSelectedCard().number == Number.HET)) {
+                putCard(cardOnTable);
+            }
+
+        } else {
+            setCanput(false);
+        }
+    }
 }
