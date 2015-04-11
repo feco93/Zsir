@@ -63,9 +63,11 @@ public class Controller {
 
     @FXML
     private void check(ActionEvent event) {
-        if (game.getCurrentPlayer() instanceof Human
-                && game.getPlayedCard().size() > 0 && game.getPlayedCard().size() % 2 == 0) {
-            game.getCurrentPlayer().setCanput(false);
+        if (game != null) {
+            if (game.getCurrentPlayer() instanceof Human
+                    && game.getPlayedCard().size() > 0 && game.getPlayedCard().size() % 2 == 0) {
+                game.getCurrentPlayer().setCanput(false);
+            }
         }
     }
 
@@ -90,13 +92,13 @@ public class Controller {
         for (Card card : player.cards) {
             Image cardImage;
             if (player instanceof Human) {
-                cardImage = new Image("resources/"+card.toString()+".jpg");
+                cardImage = new Image("/res/" + card.toString() + ".jpg");
                 cardViews[cardIndex].setOnMouseClicked(event -> {
                     Human human = (Human) player;
                     human.setSelectedCard(card);
                 });
             } else {
-                cardImage = new Image("resources/hatlap.jpg");
+                cardImage = new Image("/res/hatlap.jpg");
             }
             cardViews[cardIndex].setVisible(true);
             cardViews[cardIndex].setImage(cardImage);
@@ -112,16 +114,16 @@ public class Controller {
     private void showPlayedCards() {
         if (game.getBottomCard() != null) {
             callingCardView.setVisible(true);
-            Image cardImage = new Image("resources/"+game.getBottomCard().toString()+".jpg");
+            Image cardImage = new Image("/res/" + game.getBottomCard().toString() + ".jpg");
             callingCardView.setImage(cardImage);
         } else {
             callingCardView.setVisible(false);
         }
         if (game.getPlayedCard().size() > 1) {
             topCardView.setVisible(true);
-            Image cardImage = 
-                    new Image("resources/"+game.getPlayedCard().
-                            get(game.getPlayedCard().size() - 1).toString()+".jpg");
+            Image cardImage
+                    = new Image("/res/" + game.getPlayedCard().
+                            get(game.getPlayedCard().size() - 1).toString() + ".jpg");
             topCardView.setImage(cardImage);
         } else {
             topCardView.setVisible(false);
@@ -132,9 +134,9 @@ public class Controller {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("score.fxml"));
             fxmlLoader.setController(this);
-            Parent root  = fxmlLoader.load();
+            Parent root = fxmlLoader.load();
             Stage dialogStage = new Stage();
-            scoreText.setText("Your score is: "+String.valueOf(game.getPlayerOne().getScore()));
+            scoreText.setText("Your score is: " + String.valueOf(game.getPlayerOne().getScore()));
             Scene scene = new Scene(root);
             dialogStage.setScene(scene);
             dialogStage.setResizable(false);

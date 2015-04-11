@@ -27,7 +27,7 @@ public class DeckTest {
     @Before
     public void setUp() {
         deck = new Deck();
-        assertEquals(32, deck.getReaminingCards());
+        assertEquals(32, deck.getRemainingCards());
         playerOne = new Human(new ArrayList<>());
         playerTwo = new Computer(new ArrayList<>());
     }
@@ -35,7 +35,7 @@ public class DeckTest {
     @Test
     public void drawOneCard() {
         drawCard(1, 1, 1);
-        assertEquals(31, deck.getReaminingCards());
+        assertEquals(31, deck.getRemainingCards());
         assertEquals(1, deck.getDrawCounter());
     }
 
@@ -64,7 +64,7 @@ public class DeckTest {
     public void twoPlayerDraw8Cards() {
         drawCard(2, 1, 4);
         assertEquals(deck.getDrawCounter(), 2);
-        assertEquals(deck.getReaminingCards(), 24);
+        assertEquals(deck.getRemainingCards(), 24);
     }
 
     @Test
@@ -73,9 +73,9 @@ public class DeckTest {
         deck.drawCard(2, playerOne);
         deck.drawCard(2, playerTwo);
         assertEquals(8, deck.getDrawCounter());
-        assertEquals(4, deck.getReaminingCards());
+        assertEquals(4, deck.getRemainingCards());
         deck.drawCard(3, playerOne);
-        assertEquals(2, deck.getReaminingCards());
+        assertEquals(2, deck.getRemainingCards());
         deck.drawCard(4, playerTwo);
         assertTrue(deck.isEmpty());
     }
@@ -86,7 +86,7 @@ public class DeckTest {
         deck.drawCard(2, playerOne);
         deck.drawCard(2, playerTwo);
         deck.drawCard(4, playerOne);
-        assertEquals(2, deck.getReaminingCards());
+        assertEquals(2, deck.getRemainingCards());
     }
 
     private void drawCard(int howManyPlayer, int howManyDraw, int howManyCard) {

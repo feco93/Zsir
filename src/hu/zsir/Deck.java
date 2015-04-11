@@ -16,12 +16,8 @@ import java.util.Stack;
 public class Deck {
 
     Stack cards;
-    int reaminingCards;
+    int remainingCards;
     int drawCounter;
-
-    public int getDrawCounter() {
-        return drawCounter;
-    }
 
     public Deck() {
         cards = new Stack();
@@ -36,39 +32,43 @@ public class Deck {
         for (Card card : cardsArray) {
             cards.push(card);
         }
-        reaminingCards = 32;
+        remainingCards = 32;
         drawCounter = 0;
     }
 
     public Card drawCard() {
         drawCounter++;
-        reaminingCards--;
+        remainingCards--;
         return (Card) cards.pop();
     }
 
-    public void drawCard(int counter, Player player) {
+    public void drawCard(int howMany, Player player) {
         drawCounter++;
         if (drawCounter % 2 == 1) {
-            if (counter * 2 >= reaminingCards) {
-                counter = reaminingCards / 2;
+            if (howMany * 2 >= remainingCards) {
+                howMany = remainingCards / 2;
             }
         } else {
-            if (counter > reaminingCards) {
-                counter = reaminingCards;
+            if (howMany > remainingCards) {
+                howMany = remainingCards;
             }
         }
 
-        for (int cardIndex = 0; cardIndex < counter; ++cardIndex) {
-            reaminingCards--;
+        for (int cardIndex = 0; cardIndex < howMany; ++cardIndex) {
+            remainingCards--;
             player.drawCard((Card) cards.pop());
         }
     }
 
     public boolean isEmpty() {
-        return reaminingCards == 0;
+        return remainingCards == 0;
     }
 
-    public int getReaminingCards() {
-        return reaminingCards;
+    public int getRemainingCards() {
+        return remainingCards;
+    }
+
+    public int getDrawCounter() {
+        return drawCounter;
     }
 }
