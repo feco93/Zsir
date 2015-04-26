@@ -5,21 +5,17 @@ package hu.zsir;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 
 /**
@@ -53,7 +49,22 @@ public class Controller {
 
     @FXML
     private void newGame(ActionEvent event) {
-        start();
+        boolean restart = false;
+        if (!game.isRunning()) {
+            start();
+        }
+        else {
+            ConfirmDialog confirmDialog = ConfirmDialog.getDialog();
+            Optional<ButtonType> result = confirmDialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                restart = true;
+            }
+        }
+        if (restart) {
+            game.cancel();
+            game = new Game();
+            game.start();
+        }
     }
 
     @FXML
@@ -71,9 +82,8 @@ public class Controller {
         }
     }
 
-    Game game;
-    Timeline timeline;
-    AnimationTimer timer;
+    public static Game game = new Game();
+    public static Timeline timeline;
 
     private ImageView[] playerOneCardViews;
     private ImageView[] playerTwoCardViews;
@@ -129,52 +139,38 @@ public class Controller {
             topCardView.setVisible(false);
         }
     }
-
-    private void showScoreDialog() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/score.fxml"));
-            fxmlLoader.setController(this);
-            Parent root = fxmlLoader.load();
-            Stage dialogStage = new Stage();
-            scoreText.setText("Your score is: " + String.valueOf(game.getPlayerOne().getScore()));
-            Scene scene = new Scene(root);
-            dialogStage.setScene(scene);
-            dialogStage.setResizable(false);
-            dialogStage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    
+    @FXML
+    public void showScoreDialog() {
+        ScoreDialog scoredialog = ScoreDialog.getDialog();
+        scoredialog.show();
     }
 
     public void start() {
-        game = new Game();
+        game.start();
         initContent();
-        initTimeLine();
-        timeline.play();
-        timer.start();
-    }
-
-    private void initTimeLine() {
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        KeyFrame kf = new KeyFrame(Duration.millis(400), (ActionEvent event) -> {
-            game.gameLoop();
-        });
-        timeline.getKeyFrames().add(kf);
-        timer = new AnimationTimer() {
+        game.setOnRunning(new EventHandler<WorkerStateEvent>() {
 
             @Override
-            public void handle(long now) {
-                showPlayedCards();
-                updateCardViews(playerOneCardViews, game.getPlayerOne());
-                updateCardViews(playerTwoCardViews, game.getPlayerTwo());
-                if (game.isGameOver()) {
-                    timeline.stop();
-                    stop();
-                    showScoreDialog();
-                }
+            public void handle(WorkerStateEvent event) {
+                timeline = new Timeline();
+                timeline.setCycleCount(Timeline.INDEFINITE);
+                KeyFrame kf = new KeyFrame(Duration.millis(400), (ActionEvent actionEvent) -> {
+                    showPlayedCards();
+                    updateCardViews(playerOneCardViews, game.getPlayerOne());
+                    updateCardViews(playerTwoCardViews, game.getPlayerTwo());
+                });
+                timeline.getKeyFrames().add(kf);
+                timeline.play();
             }
-        };
+        });
+        game.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
+            @Override
+            public void handle(WorkerStateEvent event) {
+                timeline.stop();
+                showScoreDialog();
+            }
+        });
     }
 }

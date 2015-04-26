@@ -20,4 +20,5 @@ and open the template in the editor.
     -fx-font-size: 42;
     -fx-font-weight: bold;
     -fx-fill: blue;
+    -fx-font-family: serif;
 }

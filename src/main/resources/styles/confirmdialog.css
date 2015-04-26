@@ -1,0 +1,10 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+*.label {
+    -fx-font-size : 22;
+    -fx-font-family: serif;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}

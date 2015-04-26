@@ -2,6 +2,8 @@ package hu.zsir;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
 
 /*
@@ -13,7 +15,7 @@ import java.util.List;
  *
  * @author Feco
  */
-public class Game {
+public class Game extends Service<Void> {
 
     private final Deck deck;
     private final Player playerOne;
@@ -21,10 +23,8 @@ public class Game {
     private Player currentPlayer;
     private Player otherPlayer;
     private final List<Card> cardOnTable;
-    private boolean gameOver;
 
     public Game() {
-        gameOver = false;
         deck = new Deck();
         cardOnTable = new ArrayList<>();
         List<Card> playerOneCards = new ArrayList<>();
@@ -39,34 +39,6 @@ public class Game {
         otherPlayer = playerTwo;
     }
 
-    public void gameLoop() {
-        if (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty() || !cardOnTable.isEmpty()) {
-            if (currentPlayer.isPassed()) {
-                currentPlayer.setPassed(false);
-                swapPlayers();
-            }
-            else if(!currentPlayer.isCanput()) {
-                currentPlayer.setCanput(true);
-                swapPlayers();
-                currentPlayer.beat(cardOnTable);
-            }
-            else {
-                currentPlayer.nextDecision(cardOnTable, deck);
-            }
-            if (currentPlayer.isBeated()) {
-                if (!deck.isEmpty()) {
-                    deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
-                    deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
-                }
-                currentPlayer.setBeated(false);
-                clearTable();
-            }
-        } else {
-            gameOver = true;
-            clearTable();
-        }
-    }
-
     private void clearTable() {
         cardOnTable.clear();
     }
@@ -75,10 +47,6 @@ public class Game {
         Player temp = currentPlayer;
         currentPlayer = otherPlayer;
         otherPlayer = temp;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
     }
 
     public Player getPlayerOne() {
@@ -103,5 +71,38 @@ public class Game {
         } else {
             return null;
         }
+    }
+
+    @Override
+    protected Task createTask() {
+        return new Task<Void>() {
+
+            @Override
+            protected Void call() throws Exception {
+                while (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty() || !cardOnTable.isEmpty()) {
+                    if (currentPlayer.isPassed()) {
+                        currentPlayer.setPassed(false);
+                        swapPlayers();
+                    } else if (!currentPlayer.isCanput()) {
+                        currentPlayer.setCanput(true);
+                        swapPlayers();
+                        currentPlayer.beat(cardOnTable);
+                    } else {
+                        currentPlayer.nextDecision(cardOnTable, deck);
+                    }
+                    if (currentPlayer.isBeated()) {
+                        if (!deck.isEmpty()) {
+                            deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
+                            deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
+                        }
+                        currentPlayer.setBeated(false);
+                        clearTable();
+                    }
+                    Thread.sleep(300);
+                }
+                clearTable();
+                return null;
+            }
+        };
     }
 }

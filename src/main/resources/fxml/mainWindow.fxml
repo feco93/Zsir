@@ -15,6 +15,7 @@
                 <Menu mnemonicParsing="false" text="Game">
                     <items>
                         <MenuItem fx:id="newGameMenuItem" mnemonicParsing="false" onAction="#newGame" text="New Game" />
+                        <MenuItem fx:id="scoreTableMenuItem" mnemonicParsing="false" onAction="#showScoreDialog" text="Score table" />
                         <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#exit" text="Exit" />
                     </items>
                 </Menu>
