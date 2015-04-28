@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.zsir.Controller">
+<BorderPane stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.zsir.MainController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -49,7 +49,7 @@
                 <ImageView fx:id="player24" fitHeight="186.0" fitWidth="112.0" layoutX="520.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
  
                 </ImageView>
-                <Button layoutX="92.0" layoutY="440.0" mnemonicParsing="false" onAction="#check" text="Passz" />
+                <Button fx:id="checkButton" visible="false" layoutX="92.0" layoutY="440.0" mnemonicParsing="false" onAction="#check" text="Check" />
                 <ImageView fx:id="callingCardView" fitHeight="186.0" fitWidth="112.0" layoutX="344.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" />
                 <ImageView fx:id="topCardView" fitHeight="186.0" fitWidth="112.0" layoutX="344.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
             </children>

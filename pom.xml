@@ -5,7 +5,7 @@
     <groupId>hu.unideb.inf.maven</groupId>
     <artifactId>zsir-cardgame</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>zsir-cardgame</name>
     <description>Zsir is a classic Hungarian card game.</description>
     <scm>

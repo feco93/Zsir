@@ -2,8 +2,6 @@ package hu.zsir;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 
 
 /*
@@ -15,7 +13,7 @@ import javafx.concurrent.Task;
  *
  * @author Feco
  */
-public class Game extends Service<Void> {
+public class Game {
 
     private final Deck deck;
     private final Player playerOne;
@@ -23,8 +21,10 @@ public class Game extends Service<Void> {
     private Player currentPlayer;
     private Player otherPlayer;
     private final List<Card> cardOnTable;
+    private boolean gameOver;
 
     public Game() {
+        gameOver = false;
         deck = new Deck();
         cardOnTable = new ArrayList<>();
         List<Card> playerOneCards = new ArrayList<>();
@@ -73,36 +73,33 @@ public class Game extends Service<Void> {
         }
     }
 
-    @Override
-    protected Task createTask() {
-        return new Task<Void>() {
+    public boolean isGameOver() {
+        return gameOver;
+    }
 
-            @Override
-            protected Void call() throws Exception {
-                while (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty() || !cardOnTable.isEmpty()) {
-                    if (currentPlayer.isPassed()) {
-                        currentPlayer.setPassed(false);
-                        swapPlayers();
-                    } else if (!currentPlayer.isCanput()) {
-                        currentPlayer.setCanput(true);
-                        swapPlayers();
-                        currentPlayer.beat(cardOnTable);
-                    } else {
-                        currentPlayer.nextDecision(cardOnTable, deck);
-                    }
-                    if (currentPlayer.isBeated()) {
-                        if (!deck.isEmpty()) {
-                            deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
-                            deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
-                        }
-                        currentPlayer.setBeated(false);
-                        clearTable();
-                    }
-                    Thread.sleep(300);
-                }
-                clearTable();
-                return null;
+    public void nextLoop() {
+        if (!deck.isEmpty() || !playerOne.cards.isEmpty() || !playerTwo.cards.isEmpty() || !cardOnTable.isEmpty()) {
+            if (currentPlayer.isPassed()) {
+                currentPlayer.setPassed(false);
+                swapPlayers();
+            } else if (!currentPlayer.isCanput()) {
+                currentPlayer.setCanput(true);
+                swapPlayers();
+                currentPlayer.beat(cardOnTable);
+            } else {
+                currentPlayer.nextDecision(cardOnTable, deck);
             }
-        };
+            if (currentPlayer.isBeated()) {
+                if (!deck.isEmpty()) {
+                    deck.drawCard(4 - currentPlayer.getCardCounter(), currentPlayer);
+                    deck.drawCard(4 - otherPlayer.getCardCounter(), otherPlayer);
+                }
+                currentPlayer.setBeated(false);
+                clearTable();
+            }
+        } else {
+            clearTable();
+            gameOver = true;
+        }
     }
 }
