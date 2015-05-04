@@ -24,38 +24,6 @@
     </top>
     <center>
         <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-            <children>
-                <ImageView fx:id="player11" fitHeight="186.0" fitWidth="112.0" layoutX="160.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
-              
-                </ImageView>
-                <ImageView fx:id="player12" fitHeight="186.0" fitWidth="112.0" layoutX="280.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
-             
-                </ImageView>
-                <ImageView fx:id="player13" fitHeight="186.0" fitWidth="112.0" layoutX="400.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
-              
-                </ImageView>
-                <ImageView fx:id="player14" fitHeight="186.0" fitWidth="112.0" layoutX="520.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
-            
-                </ImageView>
-                <ImageView fx:id="player21" fitHeight="186.0" fitWidth="112.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-             
-                </ImageView>
-                <ImageView fx:id="player22" fitHeight="186.0" fitWidth="112.0" layoutX="280.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-              
-                </ImageView>
-                <ImageView fx:id="player23" fitHeight="186.0" fitWidth="112.0" layoutX="400.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-     
-                </ImageView>
-                <ImageView fx:id="player24" fitHeight="186.0" fitWidth="112.0" layoutX="520.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
- 
-                </ImageView>
-                <Button fx:id="checkButton" visible="false" layoutX="92.0" layoutY="440.0" mnemonicParsing="false" onAction="#check" text="Check" />
-                <ImageView fx:id="callingCardView" fitHeight="186.0" fitWidth="112.0" layoutX="344.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" />
-                <ImageView fx:id="topCardView" fitHeight="186.0" fitWidth="112.0" layoutX="344.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
-            </children>
-            <BorderPane.margin>
-                <Insets />
-            </BorderPane.margin>
         </AnchorPane>
     </center>
 </BorderPane>

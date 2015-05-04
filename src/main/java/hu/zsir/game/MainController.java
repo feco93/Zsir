@@ -7,8 +7,6 @@ package hu.zsir.game;
 
 import hu.zsir.scoretable.ScoreDialog;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -31,37 +28,13 @@ import javafx.scene.text.Text;
 public class MainController implements Initializable {
 
     @FXML
-    private ImageView player11;
-    @FXML
-    private ImageView player12;
-    @FXML
-    private ImageView player13;
-    @FXML
-    private ImageView player14;
-    @FXML
-    private ImageView player21;
-    @FXML
-    private ImageView player22;
-    @FXML
-    private ImageView player23;
-    @FXML
-    private ImageView player24;
-    @FXML
-    private ImageView callingCardView;
-    @FXML
-    private ImageView topCardView;
-    @FXML
-    private Text scoreText;
-    @FXML
-    private Button checkButton;
+    private AnchorPane mainPane;
 
     private Game game;
-    private ImageView[] playerOneCardViews;
-    private ImageView[] playerTwoCardViews;
+    private Button checkbutton;
 
     @FXML
     private void newGame(ActionEvent event) {
-        checkButton.setVisible(true);
         game = new Game();
         game.start();
         updateContent();
@@ -111,47 +84,54 @@ public class MainController implements Initializable {
     }
 
     public void updateContent() {
-        int cardIndex = 0;
-        for (Card card : game.getPlayerB().cards) {
-            Image cardImage = new Image("/images/hatlap.jpg");
-            playerTwoCardViews[cardIndex].setVisible(true);
-            playerTwoCardViews[cardIndex].setImage(cardImage);
-            cardIndex++;
-        }
-        while (cardIndex < playerTwoCardViews.length) {
-            playerTwoCardViews[cardIndex++].setVisible(false);
-        }
+        mainPane.getChildren().clear();
 
-        cardIndex = 0;
+        if (CheckOperator.getCheckoperator().isApplicable(game)) {
+            checkbutton.setVisible(true);
+            mainPane.getChildren().add(checkbutton);
+        }
+        int index = 0;
+        for (Card card : game.getPlayerB().cards) {
+            ImageView view = new ImageView(Card.getBackImage());
+            view.setLayoutX(160.0 + 120 * index);
+            view.setLayoutY(10.0);
+            view.setFitWidth(112.0);
+            view.setFitHeight(186.0);
+            mainPane.getChildren().add(view);
+            ++index;
+        }
+        index = 0;
         for (Card card : game.getPlayerA().cards) {
-            Image cardImage = new Image("/images/" + card.toString() + ".jpg");
-            playerOneCardViews[cardIndex].setVisible(true);
-            playerOneCardViews[cardIndex].setImage(cardImage);
-            playerOneCardViews[cardIndex].setOnMouseClicked(event -> {
+            ImageView view = new ImageView(card.getFrontImage());
+            view.setLayoutX(160.0 + 120 * index);
+            view.setLayoutY(440.0);
+            view.setFitWidth(112.0);
+            view.setFitHeight(186.0);
+            view.setOnMouseClicked(event -> {
                 if (!game.getCurrentplayer().isComputer()) {
                     if (game.getCurrentplayer().isValidChoose(card, game.getTable())) {
-                        game.getCurrentplayer().setChoosedCard(card);                        
+                        game.getCurrentplayer().setChoosedCard(card);
                     }
                 }
             });
-            cardIndex++;
+            mainPane.getChildren().add(view);
+            ++index;
         }
-        while (cardIndex < playerOneCardViews.length) {
-            playerOneCardViews[cardIndex++].setVisible(false);
-        }
-        if (game.getTable().getBottomCard() != null) {
-            callingCardView.setVisible(true);
-            Image cardImage = new Image("/images/" + game.getTable().getBottomCard().toString() + ".jpg");
-            callingCardView.setImage(cardImage);
-        } else {
-            callingCardView.setVisible(false);
-        }
-        if (game.getTable().getCards().size() > 1) {
-            topCardView.setVisible(true);
-            Image cardImage = new Image("/images/" + game.getTable().getTopCard().toString() + ".jpg");
-            topCardView.setImage(cardImage);
-        } else {
-            topCardView.setVisible(false);
+        index = 0;
+        for (Card card : game.getTable().getCards()) {
+            ImageView view = new ImageView(card.getFrontImage());
+            view.setLayoutX(250.0 + 30 * index);
+            view.setLayoutY(230.0);
+            view.setFitWidth(112.0);
+            view.setFitHeight(186.0);
+            view.setOnMousePressed(event -> {
+                view.toFront();
+            });
+            view.setOnMouseReleased(event -> {
+                view.toBack();
+            });
+            mainPane.getChildren().add(view);
+            ++index;
         }
         try {
             Thread.sleep(500);
@@ -162,10 +142,14 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerOneCardViews = new ImageView[]{player11, player12, player13, player14};
-        playerTwoCardViews = new ImageView[]{player21, player22, player23, player24};
-        callingCardView.setVisible(false);
-        topCardView.setVisible(false);
-        checkButton.setVisible(false);
+        checkbutton = new Button("Check");
+        checkbutton.setVisible(false);
+        checkbutton.setLayoutX(90.0);
+        checkbutton.setLayoutY(440.0);
+        checkbutton.setOnMouseClicked(event -> {
+            if (CheckOperator.getCheckoperator().isApplicable(game)) {
+                CheckOperator.getCheckoperator().apply(game);
+            }
+        });
     }
 }
