@@ -1,4 +1,4 @@
-package hu.zsir;
+package hu.zsir.game;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,8 +13,8 @@ package hu.zsir;
 
 public class Card {
 
-    Number number;
-    Suit suit;
+    private final Number number;
+    private final Suit suit;
 
     public Card(Number number, Suit suit) {
         this.number = number;
@@ -25,16 +25,8 @@ public class Card {
         return number;
     }
 
-    public void setNumber(Number number) {
-        this.number = number;
-    }
-
     public Suit getSuit() {
         return suit;
-    }
-
-    public void setSuit(Suit suit) {
-        this.suit = suit;
     }
     
     @Override

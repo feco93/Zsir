@@ -1,4 +1,4 @@
-package hu.zsir;
+package hu.zsir.game;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,13 +10,9 @@ package hu.zsir;
  *
  * @author Feco
  */
-public enum Number {
-    ALSO,
-    FELSO,
-    KIRALY,
-    HET,
-    NYOLC,
-    KILENC,
-    TIZ,
-    ASZ,
+public enum Suit {
+    TOK,
+    MAKK,
+    ZOLD,
+    PIROS
 }

@@ -1,7 +1,9 @@
-package hu.zsir;
+package hu.zsir.game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 /*
@@ -15,12 +17,12 @@ import java.util.Stack;
  */
 public class Deck {
 
-    Stack cards;
-    int remainingCards;
-    int drawCounter;
+    private final Stack<Card> cards;
+    private int remainingCards;
+    private int drawCounter;
 
     public Deck() {
-        cards = new Stack();
+        cards = new Stack<>();
         Card[] cardsArray = new Card[32];
         int i = 0;
         for (Suit suit : Suit.values()) {
@@ -36,39 +38,27 @@ public class Deck {
         drawCounter = 0;
     }
 
-    public Card drawCard() {
-        drawCounter++;
-        remainingCards--;
-        return (Card) cards.pop();
-    }
-
-    public void drawCard(int howMany, Player player) {
+    public List<Card> getCards(int count) {
+        List<Card> toDraw = new ArrayList<>();
         drawCounter++;
         if (drawCounter % 2 == 1) {
-            if (howMany * 2 >= remainingCards) {
-                howMany = remainingCards / 2;
+            if (count * 2 >= remainingCards) {
+                count = remainingCards / 2;
             }
         } else {
-            if (howMany > remainingCards) {
-                howMany = remainingCards;
+            if (count > remainingCards) {
+                count = remainingCards;
             }
         }
 
-        for (int cardIndex = 0; cardIndex < howMany; ++cardIndex) {
+        for (int cardIndex = 0; cardIndex < count; ++cardIndex) {
             remainingCards--;
-            player.drawCard((Card) cards.pop());
+            toDraw.add(cards.pop());
         }
+        return toDraw;
     }
 
     public boolean isEmpty() {
         return remainingCards == 0;
-    }
-
-    public int getRemainingCards() {
-        return remainingCards;
-    }
-
-    public int getDrawCounter() {
-        return drawCounter;
     }
 }

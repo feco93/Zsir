@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir;
+package hu.zsir.game;
 
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;

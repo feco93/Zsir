@@ -1,18 +1,17 @@
-package hu.zsir;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package hu.zsir.game;
 
 /**
  *
  * @author Feco
  */
-public enum Suit {
-    TOK,
-    MAKK,
-    ZOLD,
-    PIROS
+interface Operator {
+
+    public boolean isApplicable(Game game);
+
+    public void apply(Game game);
 }
