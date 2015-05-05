@@ -5,9 +5,6 @@
  */
 package hu.zsir.game.model;
 
-import hu.zsir.game.model.Number;
-import hu.zsir.game.model.Card;
-import hu.zsir.game.model.Game;
 import hu.zsir.game.operators.CallOperator;
 import hu.zsir.game.operators.CheckOperator;
 import java.util.ArrayList;

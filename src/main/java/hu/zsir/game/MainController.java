@@ -33,9 +33,6 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane mainPane;
 
-    private Game game;
-    private Button checkbutton;
-
     @FXML
     private void newGame(ActionEvent event) {
         game = new Game();
@@ -85,6 +82,8 @@ public class MainController implements Initializable {
         ScoreDialog scoredialog = ScoreDialog.getDialog();
         scoredialog.show();
     }
+    private Game game;
+    private Button checkbutton;
 
     public void updateContent() {
         mainPane.getChildren().clear();
@@ -105,7 +104,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mainPane.getChildren().add(checkbutton);
         checkbutton = new Button("Check");
         checkbutton.setVisible(false);
         checkbutton.setLayoutX(90.0);
@@ -115,5 +113,6 @@ public class MainController implements Initializable {
                 CheckOperator.getCheckoperator().apply(game);
             }
         });
+        mainPane.getChildren().add(checkbutton);
     }
 }
