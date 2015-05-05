@@ -1,0 +1,16 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+.root {
+    -fx-background-color: #221217
+}
+
+#text {
+    -fx-font-size : 24;
+    -fx-font-family: serif;
+    -fx-fill: #4dba56;
+    -fx-font-weight: bold;
+}
+

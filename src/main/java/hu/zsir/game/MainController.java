@@ -60,6 +60,9 @@ public class MainController implements Initializable {
                 if (flag) {
                     gameTask.restart();
                 }
+                else {
+                    System.out.println("finish");
+                }
             }
         });
         gameTask.start();

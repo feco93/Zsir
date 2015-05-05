@@ -11,33 +11,31 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
  *
  * @author Feco
  */
-public class ScoreDialog extends Stage {
+public class AddPersonStage extends Stage {
 
-    private static ScoreDialog dialog = new ScoreDialog();
+    private static AddPersonStage addpersonstage = new AddPersonStage();
 
-    private ScoreDialog() {
-        super();
+    private AddPersonStage() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/scoreWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResourceAsStream("/fxml/addPersonWindow.fxml"));
+            root.getStylesheets().add(getClass().getResource("/styles/addpersonwindow.css").toExternalForm());
             Scene scene = new Scene(root);
             setScene(scene);
             setResizable(false);
-            setTitle("Score table");
-            getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         } catch (IOException ex) {
-            Logger.getLogger(ScoreDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddPersonWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static ScoreDialog getDialog() {
-        return dialog;
+    public static AddPersonStage getAddpersonstage() {
+        return addpersonstage;
     }
 
 }
