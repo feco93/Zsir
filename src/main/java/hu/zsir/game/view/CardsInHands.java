@@ -7,6 +7,7 @@ package hu.zsir.game.view;
 
 import hu.zsir.game.model.Card;
 import hu.zsir.game.model.Game;
+import hu.zsir.game.model.Human;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
@@ -35,7 +36,7 @@ public class CardsInHands {
             cardview.setLayoutX(160.0 + 120 * index);
             cardview.setLayoutY(440.0);
             cardview.setOnMouseClicked(event -> {
-                if (!game.getCurrentplayer().isComputer()) {
+                if (game.getCurrentplayer().isHuman()) {
                     if (game.getCurrentplayer().isValidChoose(card, game.getTable())) {
                         game.getCurrentplayer().setChoosedCard(card);
                     }

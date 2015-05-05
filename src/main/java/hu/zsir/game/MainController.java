@@ -88,7 +88,8 @@ public class MainController implements Initializable {
     public void updateContent() {
         mainPane.getChildren().clear();
 
-        if (CheckOperator.getCheckoperator().isApplicable(game) && !game.getCurrentplayer().isComputer()) {
+        if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
+            mainPane.getChildren().add(checkbutton);
             checkbutton.setVisible(true);
         }
         CardsInHands cardinhands = new CardsInHands(game);
@@ -109,10 +110,9 @@ public class MainController implements Initializable {
         checkbutton.setLayoutX(90.0);
         checkbutton.setLayoutY(440.0);
         checkbutton.setOnMouseClicked(event -> {
-            if (CheckOperator.getCheckoperator().isApplicable(game) && !game.getCurrentplayer().isComputer()) {
+            if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
                 CheckOperator.getCheckoperator().apply(game);
             }
         });
-        mainPane.getChildren().add(checkbutton);
     }
 }

@@ -30,8 +30,8 @@ public class Game {
 
     public Game() {
         deck = new Deck();
-        playerA = new Player(false);
-        playerB = new Player(true);
+        playerA = new Human();
+        playerB = new Computer();
         currentplayer = playerA;
         nextplayer = playerB;
         table = new Table();
