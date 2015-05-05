@@ -5,6 +5,10 @@
  */
 package hu.zsir.game;
 
+import hu.zsir.game.model.Game;
+import hu.zsir.game.operators.CheckOperator;
+import hu.zsir.game.view.CardsInHands;
+import hu.zsir.game.view.CardsOnTable;
 import hu.zsir.scoretable.ScoreDialog;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +22,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -86,53 +89,13 @@ public class MainController implements Initializable {
     public void updateContent() {
         mainPane.getChildren().clear();
 
-        if (CheckOperator.getCheckoperator().isApplicable(game)) {
+        if (CheckOperator.getCheckoperator().isApplicable(game) && !game.getCurrentplayer().isComputer()) {
             checkbutton.setVisible(true);
-            mainPane.getChildren().add(checkbutton);
         }
-        int index = 0;
-        for (Card card : game.getPlayerB().cards) {
-            ImageView view = new ImageView(Card.getBackImage());
-            view.setLayoutX(160.0 + 120 * index);
-            view.setLayoutY(10.0);
-            view.setFitWidth(112.0);
-            view.setFitHeight(186.0);
-            mainPane.getChildren().add(view);
-            ++index;
-        }
-        index = 0;
-        for (Card card : game.getPlayerA().cards) {
-            ImageView view = new ImageView(card.getFrontImage());
-            view.setLayoutX(160.0 + 120 * index);
-            view.setLayoutY(440.0);
-            view.setFitWidth(112.0);
-            view.setFitHeight(186.0);
-            view.setOnMouseClicked(event -> {
-                if (!game.getCurrentplayer().isComputer()) {
-                    if (game.getCurrentplayer().isValidChoose(card, game.getTable())) {
-                        game.getCurrentplayer().setChoosedCard(card);
-                    }
-                }
-            });
-            mainPane.getChildren().add(view);
-            ++index;
-        }
-        index = 0;
-        for (Card card : game.getTable().getCards()) {
-            ImageView view = new ImageView(card.getFrontImage());
-            view.setLayoutX(250.0 + 30 * index);
-            view.setLayoutY(230.0);
-            view.setFitWidth(112.0);
-            view.setFitHeight(186.0);
-            view.setOnMousePressed(event -> {
-                view.toFront();
-            });
-            view.setOnMouseReleased(event -> {
-                view.toBack();
-            });
-            mainPane.getChildren().add(view);
-            ++index;
-        }
+        CardsInHands cardinhands = new CardsInHands(game);
+        CardsOnTable cardontable = new CardsOnTable(game);
+        mainPane.getChildren().addAll(cardinhands.getCards());
+        mainPane.getChildren().addAll(cardontable.getCards());
         try {
             Thread.sleep(500);
         } catch (InterruptedException ex) {
@@ -142,12 +105,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mainPane.getChildren().add(checkbutton);
         checkbutton = new Button("Check");
         checkbutton.setVisible(false);
         checkbutton.setLayoutX(90.0);
         checkbutton.setLayoutY(440.0);
         checkbutton.setOnMouseClicked(event -> {
-            if (CheckOperator.getCheckoperator().isApplicable(game)) {
+            if (CheckOperator.getCheckoperator().isApplicable(game) && !game.getCurrentplayer().isComputer()) {
                 CheckOperator.getCheckoperator().apply(game);
             }
         });

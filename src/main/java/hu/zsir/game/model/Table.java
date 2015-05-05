@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir.game;
+package hu.zsir.game.model;
 
+import hu.zsir.game.model.Card;
 import java.util.ArrayList;
 import java.util.List;
 

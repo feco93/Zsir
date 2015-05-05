@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir.game;
+package hu.zsir.game.model;
 
+import hu.zsir.game.operators.BeatOperator;
+import hu.zsir.game.operators.DrawOperator;
+import hu.zsir.game.operators.CallOperator;
+import hu.zsir.game.operators.CheckOperator;
+import hu.zsir.game.operators.Operator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -5,10 +5,10 @@
  */
 package gameTest;
 
-import hu.zsir.game.Card;
-import hu.zsir.game.CheckOperator;
-import hu.zsir.game.Game;
-import hu.zsir.game.Suit;
+import hu.zsir.game.model.Card;
+import hu.zsir.game.operators.CheckOperator;
+import hu.zsir.game.model.Game;
+import hu.zsir.game.model.Suit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class CheckOperatorTest {
 
     @Test
     public void canCheck() {
-        initTable(new Card(hu.zsir.game.Number.ALSO, Suit.PIROS), new Card(hu.zsir.game.Number.HET, Suit.MAKK));
+        initTable(new Card(hu.zsir.game.model.Number.ALSO, Suit.PIROS), new Card(hu.zsir.game.model.Number.HET, Suit.MAKK));
         assertTrue(checkoperator.isApplicable(game));
     }
     

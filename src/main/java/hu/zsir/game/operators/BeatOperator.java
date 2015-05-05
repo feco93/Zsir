@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir.game;
+package hu.zsir.game.operators;
+
+import hu.zsir.game.model.Game;
+import hu.zsir.game.model.Number;
 
 /**
  *

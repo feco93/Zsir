@@ -1,4 +1,4 @@
-package hu.zsir.game;
+package hu.zsir.game.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,21 +6,29 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
+ * Model class for a deck.
  *
  * @author Feco
  */
 public class Deck {
 
+    /**
+     * Cards in this deck.
+     */
     private final Stack<Card> cards;
-    private int remainingCards;
-    private int drawCounter;
+    /**
+     * Remaining cards in this deck.
+     */
+    private int remainingcards;
+    /**
+     * How many draw occured on this deck.
+     */
+    private int drawcounter;
 
+    /**
+     * Constructs a new Deck object.
+     */
     public Deck() {
         cards = new Stack<>();
         Card[] cardsArray = new Card[32];
@@ -34,31 +42,42 @@ public class Deck {
         for (Card card : cardsArray) {
             cards.push(card);
         }
-        remainingCards = 32;
-        drawCounter = 0;
+        remainingcards = 32;
+        drawcounter = 0;
     }
 
+    /**
+     * Returns the specified number of cards from this deck.
+     *
+     * @param count the required number of cards
+     * @return right cardinality cards from this deck
+     */
     public List<Card> getCards(int count) {
         List<Card> toDraw = new ArrayList<>();
-        drawCounter++;
-        if (drawCounter % 2 == 1) {
-            if (count * 2 >= remainingCards) {
-                count = remainingCards / 2;
+        drawcounter++;
+        if (drawcounter % 2 == 1) {
+            if (count * 2 >= remainingcards) {
+                count = remainingcards / 2;
             }
         } else {
-            if (count > remainingCards) {
-                count = remainingCards;
+            if (count > remainingcards) {
+                count = remainingcards;
             }
         }
 
         for (int cardIndex = 0; cardIndex < count; ++cardIndex) {
-            remainingCards--;
+            remainingcards--;
             toDraw.add(cards.pop());
         }
         return toDraw;
     }
 
+    /**
+     * Indicates whether the deck is empty.
+     * 
+     * @return true if this deck is empty
+     */
     public boolean isEmpty() {
-        return remainingCards == 0;
+        return remainingcards == 0;
     }
 }

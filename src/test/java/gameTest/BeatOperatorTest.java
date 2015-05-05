@@ -5,8 +5,8 @@
  */
 package gameTest;
 
-import hu.zsir.game.BeatOperator;
-import hu.zsir.game.Game;
+import hu.zsir.game.operators.BeatOperator;
+import hu.zsir.game.model.Game;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

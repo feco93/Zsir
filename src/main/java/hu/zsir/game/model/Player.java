@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir.game;
+package hu.zsir.game.model;
 
+import hu.zsir.game.model.Number;
+import hu.zsir.game.model.Card;
+import hu.zsir.game.model.Game;
+import hu.zsir.game.operators.CallOperator;
+import hu.zsir.game.operators.CheckOperator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +49,9 @@ public class Player {
 
     public void addCards(List<Card> cards) {
         for (Card card : cards) {
+            if (isComputer()) {
+                card.turnDown();
+            }
             this.cards.add(card);
         }
     }
@@ -87,8 +95,7 @@ public class Player {
                 } else {
                     return false;
                 }
-            }
-            else {
+            } else {
                 return true;
             }
         } else {
@@ -224,7 +231,7 @@ public class Player {
         return toPut;
     }
 
-    synchronized void chooseOperator(Game game) {
+    synchronized public void chooseOperator(Game game) {
         if (game.getCurrentplayer().isComputer()) {
             CheckOperator.getCheckoperator().apply(game);
         } else {

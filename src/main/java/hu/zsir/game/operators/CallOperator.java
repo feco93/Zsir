@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir.game;
+package hu.zsir.game.operators;
+
+import hu.zsir.game.model.Card;
+import hu.zsir.game.model.Game;
+import hu.zsir.game.model.Number;
+import hu.zsir.game.model.Player;
 
 /**
  *
@@ -27,6 +32,7 @@ public class CallOperator implements Operator {
     @Override
     public void apply(Game game) {
         Card card = game.getCurrentplayer().putCard();
+        card.turnUp();
         game.getTable().addCard(card);
         game.getCurrentplayer().setChoosedCard(null);
         game.swapPlayers();

@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.zsir.game;
+package hu.zsir.game.operators;
+
+import hu.zsir.game.model.Game;
 
 /**
  *
  * @author Feco
  */
-interface Operator {
+public interface Operator {
 
     public boolean isApplicable(Game game);
 

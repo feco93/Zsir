@@ -5,8 +5,8 @@
  */
 package gameTest;
 
-import hu.zsir.game.DrawOperator;
-import hu.zsir.game.Game;
+import hu.zsir.game.operators.DrawOperator;
+import hu.zsir.game.model.Game;
 import org.junit.After;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

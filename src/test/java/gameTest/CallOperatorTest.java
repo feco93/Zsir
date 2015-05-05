@@ -5,10 +5,10 @@
  */
 package gameTest;
 
-import hu.zsir.game.CallOperator;
-import hu.zsir.game.Card;
-import hu.zsir.game.Game;
-import hu.zsir.game.Suit;
+import hu.zsir.game.operators.CallOperator;
+import hu.zsir.game.model.Card;
+import hu.zsir.game.model.Game;
+import hu.zsir.game.model.Suit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,10 +30,10 @@ public class CallOperatorTest {
     }
 
     private void initPlayer() {
-        Card[] cards = new Card[]{new Card(hu.zsir.game.Number.ALSO, Suit.TOK),
-            new Card(hu.zsir.game.Number.ALSO, Suit.PIROS),
-            new Card(hu.zsir.game.Number.FELSO, Suit.TOK),
-            new Card(hu.zsir.game.Number.TIZ, Suit.ZOLD)};
+        Card[] cards = new Card[]{new Card(hu.zsir.game.model.Number.ALSO, Suit.TOK),
+            new Card(hu.zsir.game.model.Number.ALSO, Suit.PIROS),
+            new Card(hu.zsir.game.model.Number.FELSO, Suit.TOK),
+            new Card(hu.zsir.game.model.Number.TIZ, Suit.ZOLD)};
         List<Card> inHand = new ArrayList<>(Arrays.asList(cards));
         game.getCurrentplayer().addCards(inHand);
 
@@ -64,18 +64,19 @@ public class CallOperatorTest {
 
     @Test
     public void canHold() {
-        initTable(new Card(hu.zsir.game.Number.ALSO, Suit.ZOLD), new Card(hu.zsir.game.Number.HET, Suit.MAKK));
+        initTable(new Card(hu.zsir.game.model.Number.ALSO, Suit.ZOLD), new Card(hu.zsir.game.model.Number.HET, Suit.MAKK));
         assertTrue(calloperator.isApplicable(game));
     }
 
     @Test
     public void cantHold() {
-        initTable(new Card(hu.zsir.game.Number.KIRALY, Suit.TOK), new Card(hu.zsir.game.Number.KIRALY, Suit.MAKK));
+        initTable(new Card(hu.zsir.game.model.Number.KIRALY, Suit.TOK), new Card(hu.zsir.game.model.Number.KIRALY, Suit.MAKK));
         assertFalse(calloperator.isApplicable(game));
     }
     
     @Test
     public void applyCall() {
+        game.getCurrentplayer().setChoosedCard(game.getCurrentplayer().cards.get(0));
         calloperator.apply(game);
         assertFalse(game.getTable().getCards().isEmpty());
     }
