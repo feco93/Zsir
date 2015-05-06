@@ -1,7 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Copyright (C) 2015 Feco
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package hu.zsir.game;
 
@@ -20,7 +31,6 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -55,18 +65,14 @@ public class MainController implements Initializable {
                 };
             }
         };
-        gameTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-
-            @Override
-            public void handle(WorkerStateEvent event) {
-                updateContent();
-                Boolean flag = (Boolean) event.getSource().getValue();
-                if (flag) {
-                    gameTask.restart();
-                } else {
-                    AddPersonStage.getAddpersonstage().initOwner(mainWindow);
-                    AddPersonStage.getAddpersonstage().show();
-                }
+        gameTask.setOnSucceeded((WorkerStateEvent event1) -> {
+            updateContent();
+            Boolean flag = (Boolean) event1.getSource().getValue();
+            if (flag) {
+                gameTask.restart();
+            } else {
+                AddPersonStage.getAddpersonstage().initOwner(mainWindow);
+                AddPersonStage.getAddpersonstage().show();
             }
         });
         gameTask.start();
@@ -81,7 +87,7 @@ public class MainController implements Initializable {
     private void check(ActionEvent event) {
         if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
             CheckOperator.getCheckoperator().apply(game);
-        }
+        } 
     }
 
     @FXML

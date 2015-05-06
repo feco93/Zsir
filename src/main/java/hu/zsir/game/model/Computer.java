@@ -1,7 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Copyright (C) 2015 Feco
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package hu.zsir.game.model;
 
@@ -15,6 +26,11 @@ import java.util.Random;
  */
 public class Computer extends Player {
 
+    /**
+     * Chooses the calling card from the cards of this player.
+     *
+     * @return the calling card
+     */
     private Card chooseCallingCard() {
         for (Card card : cards) {
             if (card.getNumber() != hu.zsir.game.model.Number.HET && card.getNumber() != hu.zsir.game.model.Number.ASZ
@@ -47,6 +63,11 @@ public class Computer extends Player {
         }
     }
 
+    /**
+     * Chooses a random card from the cards of this player.
+     *
+     * @return
+     */
     private Card chooseRandomCard() {
         Random rand = new Random();
         int cardIndex;
@@ -58,6 +79,12 @@ public class Computer extends Player {
         return cards.get(cardIndex);
     }
 
+    /**
+     * Chooses a card from the cards of this player.
+     *
+     * @param cardOnTable cards on the table
+     * @return the choosed card
+     */
     private Card chooseCard(List<Card> cardOnTable) {
         Card toPut = null;
         Card bottomCard = cardOnTable.get(0);
@@ -89,6 +116,12 @@ public class Computer extends Player {
         return toPut;
     }
 
+    /**
+     * Chooses a tramp card from the cards of this player.
+     *
+     * @param callingCard the calling card
+     * @return the choosed card
+     */
     private Card chooseTrampCard(Card callingCard) {
         Card toPut = null;
         for (Card card : cards) {
@@ -108,6 +141,11 @@ public class Computer extends Player {
         return toPut;
     }
 
+    /**
+     * Chooses a non tramp card from the cards of this player.
+     *
+     * @return the choosed card
+     */
     private Card chooseNonTrampCard() {
         Card toPut = null;
         for (Card card : cards) {
@@ -119,6 +157,11 @@ public class Computer extends Player {
         return toPut;
     }
 
+    /**
+     * Chooses a card from the cards of this player.
+     *
+     * @param game the state of the game
+     */
     @Override
     public void chooseCard(Game game) {
         if (game.getTable().getCards().isEmpty()) {
@@ -131,26 +174,49 @@ public class Computer extends Player {
         CallOperator.getCallOperator().apply(game);
     }
 
+    /**
+     * Sets the choosed card.
+     *
+     * @param card the choosed card
+     */
     @Override
     public void setChoosedCard(Card card) {
         this.choosedCard = card;
     }
 
+    /**
+     * Sets the checked property to true.
+     */
     @Override
     public void check() {
         checked = true;
     }
 
+    /**
+     * Chooses an operator.
+     * 
+     * @param game the state of the game
+     */
     @Override
     public void chooseOperator(Game game) {
         chooseCard(game);
     }
 
+    /**
+     * Indicates whether this player is human.
+     * 
+     * @return returns false 
+     */
     @Override
     public boolean isHuman() {
         return false;
     }
-    
+
+    /**
+     * Adds cards to the cards of this player.
+     * 
+     * @param cards the list of cards to be added to the cards of this player
+     */
     @Override
     public void addCards(List<Card> cards) {
         for (Card card : cards) {
