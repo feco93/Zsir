@@ -6,7 +6,6 @@
 package hu.zsir.game.model;
 
 import hu.zsir.game.operators.CallOperator;
-import hu.zsir.game.operators.CheckOperator;
 import java.util.List;
 import java.util.Random;
 
@@ -144,7 +143,7 @@ public class Computer extends Player {
 
     @Override
     public void chooseOperator(Game game) {
-        CheckOperator.getCheckoperator().apply(game);
+        chooseCard(game);
     }
 
     @Override

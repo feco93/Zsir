@@ -7,7 +7,6 @@ package hu.zsir.game.view;
 
 import hu.zsir.game.model.Card;
 import hu.zsir.game.model.Game;
-import hu.zsir.game.model.Human;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
@@ -18,7 +17,7 @@ import javafx.scene.image.ImageView;
  */
 public class CardsInHands {
 
-    private ObservableList<ImageView> cards;
+    private final ObservableList<ImageView> cards;
 
     public CardsInHands(Game game) {
         cards = FXCollections.observableArrayList();

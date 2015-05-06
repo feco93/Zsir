@@ -17,7 +17,7 @@ import javafx.scene.image.ImageView;
  */
 public class CardsOnTable {
 
-    private ObservableList<ImageView> cards;
+    private final ObservableList<ImageView> cards;
 
     public CardsOnTable(Game game) {
         cards = FXCollections.observableArrayList();

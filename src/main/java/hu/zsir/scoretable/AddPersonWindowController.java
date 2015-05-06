@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -27,6 +28,8 @@ public class AddPersonWindowController implements Initializable {
     private GridPane mainPane;
     @FXML
     private TextField nameField;
+    @FXML
+    private Text warningText;
 
     /**
      * Initializes the controller class.
@@ -42,8 +45,13 @@ public class AddPersonWindowController implements Initializable {
 
     @FXML
     private void savePerson() {
-        System.out.println(nameField.getText());
-        AddPersonStage.getAddpersonstage().close();
+        if (nameField.getText().isEmpty()) {
+            warningText.setVisible(true);
+        }
+        else {
+            System.out.println(nameField.getText());
+            AddPersonStage.getAddpersonstage().close();
+        }
     }
 
 }

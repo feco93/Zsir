@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
  */
 public class CardView extends ImageView {
     
-    private Image cardimage;
+    private final Image cardimage;
 
     public CardView(Card card) {
         if (card.isFaceup()) {
