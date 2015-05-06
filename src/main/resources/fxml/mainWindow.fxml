@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -24,6 +25,8 @@
     </top>
     <center>
         <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-        </AnchorPane>
+         <children>
+            <Button fx:id="checkbutton" onAction="#check"  layoutX="100.0" layoutY="440.0" mnemonicParsing="false" text="Check" />
+         </children></AnchorPane>
     </center>
 </BorderPane>

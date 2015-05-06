@@ -7,10 +7,17 @@
     -fx-background-color: #221217
 }
 
-#text {
-    -fx-font-size : 24;
+#message-text {
+    -fx-font-size : 32;
     -fx-font-family: serif;
     -fx-fill: #4dba56;
+    -fx-font-weight: bold;
+}
+
+#warning-text {
+    -fx-font-size : 24;
+    -fx-font-family: serif;
+    -fx-fill: #cc0000;
     -fx-font-weight: bold;
 }
 

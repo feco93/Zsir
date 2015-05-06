@@ -26,7 +26,8 @@ public class Game {
     private final Deck deck;
     private Player currentplayer;
     private Player nextplayer;
-    public final List<Operator> operators;
+    private final List<Operator> operators;
+    private List<Operator> applicableoperators;
 
     public Game() {
         deck = new Deck();
@@ -36,6 +37,7 @@ public class Game {
         nextplayer = playerB;
         table = new Table();
         operators = Arrays.asList(BeatOperator.getBeatoperator(), CallOperator.getCallOperator(), CheckOperator.getCheckoperator());
+        applicableoperators = new ArrayList<>();
     }
 
     public void start() {
@@ -76,21 +78,25 @@ public class Game {
         return playerB;
     }
 
+    public int applicableOperators() {
+        return applicableoperators.size();
+    }
+
     public boolean nextLoop() {
         if (!isGoal()) {
             System.out.println("-------------------");
-            List<Operator> applicable = new ArrayList<>();
+            applicableoperators.clear();
             for (Operator op : operators) {
                 if (op.isApplicable(this)) {
-                    applicable.add(op);
+                    applicableoperators.add(op);
                     System.out.println(op.toString());
                 }
             }
-            if (applicable.size() == 1) {
-                if (applicable.get(0) instanceof CallOperator) {
+            if (applicableoperators.size() == 1) {
+                if (applicableoperators.get(0) instanceof CallOperator) {
                     getCurrentplayer().chooseCard(this);
                 } else {
-                    applicable.get(0).apply(this);
+                    applicableoperators.get(0).apply(this);
                 }
             } else {
                 getCurrentplayer().chooseOperator(this);

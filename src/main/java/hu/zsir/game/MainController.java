@@ -5,10 +5,12 @@
  */
 package hu.zsir.game;
 
+import static hu.zsir.game.Main.mainWindow;
 import hu.zsir.game.model.Game;
 import hu.zsir.game.operators.CheckOperator;
 import hu.zsir.game.view.CardsInHands;
 import hu.zsir.game.view.CardsOnTable;
+import hu.zsir.scoretable.AddPersonStage;
 import hu.zsir.scoretable.ScoreDialog;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +34,8 @@ public class MainController implements Initializable {
 
     @FXML
     private AnchorPane mainPane;
+    @FXML
+    private Button checkbutton;
 
     @FXML
     private void newGame(ActionEvent event) {
@@ -59,9 +63,9 @@ public class MainController implements Initializable {
                 Boolean flag = (Boolean) event.getSource().getValue();
                 if (flag) {
                     gameTask.restart();
-                }
-                else {
-                    System.out.println("finish");
+                } else {
+                    AddPersonStage.getAddpersonstage().initOwner(mainWindow);
+                    AddPersonStage.getAddpersonstage().show();
                 }
             }
         });
@@ -75,7 +79,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void check(ActionEvent event) {
-        if (CheckOperator.getCheckoperator().isApplicable(game)) {
+        if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
             CheckOperator.getCheckoperator().apply(game);
         }
     }
@@ -85,16 +89,14 @@ public class MainController implements Initializable {
         ScoreDialog scoredialog = ScoreDialog.getDialog();
         scoredialog.show();
     }
+
     private Game game;
-    private Button checkbutton;
 
     public void updateContent() {
         mainPane.getChildren().clear();
 
-        if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
-            mainPane.getChildren().add(checkbutton);
-            checkbutton.setVisible(true);
-        }
+        mainPane.getChildren().add(checkbutton);
+
         CardsInHands cardinhands = new CardsInHands(game);
         CardsOnTable cardontable = new CardsOnTable(game);
         mainPane.getChildren().addAll(cardinhands.getCards());
@@ -108,14 +110,5 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        checkbutton = new Button("Check");
-        checkbutton.setVisible(false);
-        checkbutton.setLayoutX(90.0);
-        checkbutton.setLayoutY(440.0);
-        checkbutton.setOnMouseClicked(event -> {
-            if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
-                CheckOperator.getCheckoperator().apply(game);
-            }
-        });
     }
 }

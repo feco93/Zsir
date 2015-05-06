@@ -11,7 +11,10 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -29,6 +32,9 @@ public class AddPersonStage extends Stage {
             Scene scene = new Scene(root);
             setScene(scene);
             setResizable(false);
+            initStyle(StageStyle.UTILITY);
+            initModality(Modality.WINDOW_MODAL);
+            getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         } catch (IOException ex) {
             Logger.getLogger(AddPersonWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
