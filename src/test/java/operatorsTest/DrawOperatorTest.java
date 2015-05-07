@@ -14,59 +14,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package gameTest;
+package operatorsTest;
 
-import hu.zsir.game.model.Card;
-import hu.zsir.game.operators.CheckOperator;
+import hu.zsir.game.operators.DrawOperator;
 import hu.zsir.game.model.Game;
-import hu.zsir.game.model.Suit;
 import org.junit.After;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Feco
  */
-public class CheckOperatorTest {
-
-    CheckOperator checkoperator;
-    Game game;
-
-    public CheckOperatorTest() {
+public class DrawOperatorTest {
+    
+    private DrawOperator drawoperator;
+    private Game game;
+    
+    public DrawOperatorTest() {
     }
-
-    private void initTable(Card... cards) {
-        for (Card card : cards) {
-            game.getTable().addCard(card);
-        }
-    }
-
+    
     @Before
     public void setUp() {
-        checkoperator = CheckOperator.getCheckoperator();
+        drawoperator = DrawOperator.getDrawoperator();
         game = new Game();
     }
-
+    
     @Test
-    public void canCheck() {
-        initTable(new Card(hu.zsir.game.model.Rank.ALSO, Suit.PIROS), new Card(hu.zsir.game.model.Rank.HET, Suit.MAKK));
-        assertTrue(checkoperator.isApplicable(game));
+    public void canDraw() {
+        assertTrue(drawoperator.isApplicable(game));
     }
     
     @Test
-    public void emptyTable() {
-        assertFalse(checkoperator.isApplicable(game));
+    public void cantDraw() {
+        drawoperator.apply(game);
+        assertFalse(drawoperator.isApplicable(game));
     }
     
-    @Test
-    public void cantCheck() {
-        assertFalse(checkoperator.isApplicable(game));
-    }
-
     @After
     public void tearDown() {
     }
-
+    
 }

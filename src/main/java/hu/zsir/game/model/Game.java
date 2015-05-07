@@ -68,15 +68,14 @@ public class Game {
         deck = new Deck();
         playerA = new Human();
         playerB = new Computer();
-        table = new Table();
+        table = new Table();currentplayer = playerA;
+        nextplayer = playerB;
     }
 
     /**
      * Starts the game.
      */
-    public void start() {
-        currentplayer = playerA;
-        nextplayer = playerB;
+    public void start() {        
         DrawOperator.getDrawoperator().apply(this);
     }
 
