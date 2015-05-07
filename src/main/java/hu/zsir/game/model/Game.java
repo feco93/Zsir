@@ -26,88 +26,152 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Model class for game.
  *
  * @author Feco
  */
 public class Game {
 
+    /**
+     * Player A of the game.
+     */
     private final Player playerA;
+    /**
+     * Player B of the game.
+     */
     private final Player playerB;
+    /**
+     * Table of the game.
+     */
     private final Table table;
+    /**
+     * Deck of the game.
+     */
     private final Deck deck;
+    /**
+     * The current player of the game.
+     */
     private Player currentplayer;
+    /**
+     * The next player of the game.
+     */
     private Player nextplayer;
-    private final List<Operator> operators;
-    private List<Operator> applicableoperators;
+    /**
+     * The list of available operators.
+     */
+    private final List<Operator> operators = Arrays.asList(BeatOperator.getBeatoperator(), CallOperator.getCallOperator(), CheckOperator.getCheckoperator());
 
+    /**
+     * Constructs a new Game object.
+     */
     public Game() {
         deck = new Deck();
         playerA = new Human();
         playerB = new Computer();
-        currentplayer = playerA;
-        nextplayer = playerB;
         table = new Table();
-        operators = Arrays.asList(BeatOperator.getBeatoperator(), CallOperator.getCallOperator(), CheckOperator.getCheckoperator());
-        applicableoperators = new ArrayList<>();
     }
 
+    /**
+     * Starts the game.
+     */
     public void start() {
+        currentplayer = playerA;
+        nextplayer = playerB;
         DrawOperator.getDrawoperator().apply(this);
     }
 
+    /**
+     * Indicates whether the game is over.
+     *
+     * @return true if the game is over
+     */
     public boolean isGoal() {
         return deck.isEmpty() && playerA.cards.isEmpty() && playerB.cards.isEmpty() && table.getCards().isEmpty();
     }
 
+    /**
+     * Swaps the players.
+     */
     public void swapPlayers() {
         Player temp = currentplayer;
         currentplayer = nextplayer;
         nextplayer = temp;
     }
 
+    /**
+     * Gets the table.
+     *
+     * @return the table object of the game
+     */
     public Table getTable() {
         return table;
     }
 
+    /**
+     * Gets the deck.
+     *
+     * @return the deck object of the game
+     */
     public Deck getDeck() {
         return deck;
     }
 
+    /**
+     * Gets the current player.
+     *
+     * @return the current player
+     */
     public Player getCurrentplayer() {
         return currentplayer;
     }
 
+    /**
+     * Gets the next player.
+     *
+     * @return the next player
+     */
     public Player getNextplayer() {
         return nextplayer;
     }
 
+    /**
+     * Gets the player A.
+     *
+     * @return player A
+     */
     public Player getPlayerA() {
         return playerA;
     }
 
+    /**
+     * Gets the player B.
+     *
+     * @return player B
+     */
     public Player getPlayerB() {
         return playerB;
     }
 
-    public int applicableOperators() {
-        return applicableoperators.size();
-    }
-
+    /**
+     * Execute the next turn in this game.
+     * 
+     * @return true if the game is not over
+     */
     public boolean nextLoop() {
         if (!isGoal()) {
+            List<Operator> applicableOperators = new ArrayList<>();
             System.out.println("-------------------");
-            applicableoperators.clear();
             for (Operator op : operators) {
                 if (op.isApplicable(this)) {
-                    applicableoperators.add(op);
+                    applicableOperators.add(op);
                     System.out.println(op.toString());
                 }
             }
-            if (applicableoperators.size() == 1) {
-                if (applicableoperators.get(0) instanceof CallOperator) {
+            if (applicableOperators.size() == 1) {
+                if (applicableOperators.get(0) instanceof CallOperator) {
                     getCurrentplayer().chooseCard(this);
                 } else {
-                    applicableoperators.get(0).apply(this);
+                    applicableOperators.get(0).apply(this);
                 }
             } else {
                 getCurrentplayer().chooseOperator(this);

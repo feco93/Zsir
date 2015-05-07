@@ -50,7 +50,7 @@ public class Deck {
         Card[] cardsArray = new Card[32];
         int i = 0;
         for (Suit suit : Suit.values()) {
-            for (Number number : Number.values()) {
+            for (Rank number : Rank.values()) {
                 cardsArray[i++] = new Card(number, suit);
             }
         }

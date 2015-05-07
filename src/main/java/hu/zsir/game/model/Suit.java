@@ -23,8 +23,20 @@ package hu.zsir.game.model;
  */
 public enum Suit {
 
+    /**
+     * The Tök suit.
+     */
     TOK,
+    /**
+     * The Makk suit.
+     */
     MAKK,
+    /**
+     * The Zöld suit.
+     */
     ZOLD,
+    /**
+     * The Piros suit.
+     */
     PIROS
 }

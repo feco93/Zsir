@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Model class for table.
+ * 
  * @author Feco
  */
 public class Table {

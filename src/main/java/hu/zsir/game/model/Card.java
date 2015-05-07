@@ -26,7 +26,7 @@ public class Card {
     /**
      * Number of the card.
      */
-    private final Number number;
+    private final Rank rank;
     /**
      * Suit of the card.
      */
@@ -39,11 +39,11 @@ public class Card {
     /**
      * Constructs a new Card object with specified suit and number.
      *
-     * @param number number property of this card
+     * @param rank number property of this card
      * @param suit suit property of this card
      */
-    public Card(Number number, Suit suit) {
-        this.number = number;
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
         this.suit = suit;
     }
 
@@ -52,8 +52,8 @@ public class Card {
      *
      * @return the value of the property Number
      */
-    public Number getNumber() {
-        return number;
+    public Rank getRank() {
+        return rank;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Card {
      */
     @Override
     public String toString() {
-        return suit.toString().toLowerCase() + "_" + number.toString().toLowerCase();
+        return suit.toString().toLowerCase() + "_" + rank.toString().toLowerCase();
     }
 
 }

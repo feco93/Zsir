@@ -51,7 +51,7 @@ public class CheckOperatorTest {
 
     @Test
     public void canCheck() {
-        initTable(new Card(hu.zsir.game.model.Number.ALSO, Suit.PIROS), new Card(hu.zsir.game.model.Number.HET, Suit.MAKK));
+        initTable(new Card(hu.zsir.game.model.Rank.ALSO, Suit.PIROS), new Card(hu.zsir.game.model.Rank.HET, Suit.MAKK));
         assertTrue(checkoperator.isApplicable(game));
     }
     

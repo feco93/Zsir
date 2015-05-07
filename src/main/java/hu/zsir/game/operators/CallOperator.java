@@ -18,7 +18,7 @@ package hu.zsir.game.operators;
 
 import hu.zsir.game.model.Card;
 import hu.zsir.game.model.Game;
-import hu.zsir.game.model.Number;
+import hu.zsir.game.model.Rank;
 import hu.zsir.game.model.Player;
 
 /**
@@ -51,7 +51,7 @@ public class CallOperator implements Operator {
     
     private boolean canCall(Player currentplayer, Card firstcard) {
         for (Card card : currentplayer.cards) {
-            if (card.getNumber() == firstcard.getNumber() || card.getNumber() == Number.HET) {
+            if (card.getRank() == firstcard.getRank() || card.getRank() == Rank.HET) {
                 return true;
             }
         }

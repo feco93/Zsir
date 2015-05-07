@@ -116,8 +116,8 @@ public abstract class Player {
     public boolean isValidChoose(Card choosedCard, Table table) {
         if (table.getCards().size() > 0) {
             if (table.getCards().size() % 2 == 0) {
-                return table.getBottomCard().getNumber() == choosedCard.getNumber()
-                        || choosedCard.getNumber() == Number.HET;
+                return table.getBottomCard().getRank() == choosedCard.getRank()
+                        || choosedCard.getRank() == Rank.HET;
             } else {
                 return true;
             }

@@ -41,10 +41,10 @@ public class CallOperatorTest {
     }
 
     private void initPlayer() {
-        Card[] cards = new Card[]{new Card(hu.zsir.game.model.Number.ALSO, Suit.TOK),
-            new Card(hu.zsir.game.model.Number.ALSO, Suit.PIROS),
-            new Card(hu.zsir.game.model.Number.FELSO, Suit.TOK),
-            new Card(hu.zsir.game.model.Number.TIZ, Suit.ZOLD)};
+        Card[] cards = new Card[]{new Card(hu.zsir.game.model.Rank.ALSO, Suit.TOK),
+            new Card(hu.zsir.game.model.Rank.ALSO, Suit.PIROS),
+            new Card(hu.zsir.game.model.Rank.FELSO, Suit.TOK),
+            new Card(hu.zsir.game.model.Rank.TIZ, Suit.ZOLD)};
         List<Card> inHand = new ArrayList<>(Arrays.asList(cards));
         game.getCurrentplayer().addCards(inHand);
 
@@ -75,13 +75,13 @@ public class CallOperatorTest {
 
     @Test
     public void canHold() {
-        initTable(new Card(hu.zsir.game.model.Number.ALSO, Suit.ZOLD), new Card(hu.zsir.game.model.Number.HET, Suit.MAKK));
+        initTable(new Card(hu.zsir.game.model.Rank.ALSO, Suit.ZOLD), new Card(hu.zsir.game.model.Rank.HET, Suit.MAKK));
         assertTrue(calloperator.isApplicable(game));
     }
 
     @Test
     public void cantHold() {
-        initTable(new Card(hu.zsir.game.model.Number.KIRALY, Suit.TOK), new Card(hu.zsir.game.model.Number.KIRALY, Suit.MAKK));
+        initTable(new Card(hu.zsir.game.model.Rank.KIRALY, Suit.TOK), new Card(hu.zsir.game.model.Rank.KIRALY, Suit.MAKK));
         assertFalse(calloperator.isApplicable(game));
     }
     

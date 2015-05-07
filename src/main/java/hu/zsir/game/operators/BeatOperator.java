@@ -18,7 +18,7 @@ package hu.zsir.game.operators;
 
 import hu.zsir.game.model.Card;
 import hu.zsir.game.model.Game;
-import hu.zsir.game.model.Number;
+import hu.zsir.game.model.Rank;
 import java.util.List;
 
 /**
@@ -34,8 +34,8 @@ public class BeatOperator implements Operator {
 
     @Override
     public boolean isApplicable(Game game) {
-        return game.getNextplayer().isChecked() || (game.getTable().getCards().size() > 0 && game.getTable().getCards().size() % 2 == 0 && (game.getTable().getBottomCard().getNumber() != game.getTable().getTopCard().getNumber()
-                && game.getTable().getTopCard().getNumber() != Number.HET));
+        return game.getNextplayer().isChecked() || (game.getTable().getCards().size() > 0 && game.getTable().getCards().size() % 2 == 0 && (game.getTable().getBottomCard().getRank() != game.getTable().getTopCard().getRank()
+                && game.getTable().getTopCard().getRank() != Rank.HET));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class BeatOperator implements Operator {
     private int computeScore(List<Card> cards) {
         int score = 0;
         for (Card card : cards) {
-            if (card.getNumber() == Number.ASZ || card.getNumber() == Number.TIZ) {
+            if (card.getRank() == Rank.ASZ || card.getRank() == Rank.TIZ) {
                 score++;
             }
         }

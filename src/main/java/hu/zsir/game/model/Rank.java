@@ -21,13 +21,37 @@ package hu.zsir.game.model;
  * 
  * @author Feco
  */
-public enum Number {
+public enum Rank {
+    /**
+     * The Also rank.
+     */
     ALSO,
+    /**
+     * The Felso rank.
+     */
     FELSO,
+    /**
+     * The Kiraly rank.
+     */
     KIRALY,
+    /**
+     * The VII rank.
+     */
     HET,
+    /**
+     * The VIII rank.
+     */
     NYOLC,
+    /**
+     * The IX rank.
+     */
     KILENC,
+    /**
+     * The X rank.
+     */
     TIZ,
+    /**
+     * The Asz rank.
+     */
     ASZ,
 }

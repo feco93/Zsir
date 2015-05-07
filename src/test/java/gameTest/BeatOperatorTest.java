@@ -20,7 +20,7 @@ import hu.zsir.game.model.Card;
 import hu.zsir.game.operators.BeatOperator;
 import hu.zsir.game.model.Game;
 import hu.zsir.game.model.Suit;
-import hu.zsir.game.model.Number;
+import hu.zsir.game.model.Rank;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,14 +70,14 @@ public class BeatOperatorTest {
 
     @Test
     public void scoreTest() {
-        initTable(new Card(Number.ASZ, Suit.TOK));
+        initTable(new Card(Rank.ASZ, Suit.TOK));
         beatoperator.apply(game);
         assertEquals(1, game.getCurrentplayer().getScore());
     }
 
     @Test
     public void scoreTest2() {
-        initTable(new Card(Number.ALSO, Suit.TOK));
+        initTable(new Card(Rank.ALSO, Suit.TOK));
         beatoperator.apply(game);
         assertEquals(0, game.getCurrentplayer().getScore());
     }

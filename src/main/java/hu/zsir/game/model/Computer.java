@@ -33,8 +33,8 @@ public class Computer extends Player {
      */
     private Card chooseCallingCard() {
         for (Card card : cards) {
-            if (card.getNumber() != hu.zsir.game.model.Number.HET && card.getNumber() != hu.zsir.game.model.Number.ASZ
-                    && card.getNumber() != hu.zsir.game.model.Number.TIZ) {
+            if (card.getRank() != hu.zsir.game.model.Rank.HET && card.getRank() != hu.zsir.game.model.Rank.ASZ
+                    && card.getRank() != hu.zsir.game.model.Rank.TIZ) {
                 return card;
             }
         }
@@ -43,7 +43,7 @@ public class Computer extends Player {
         Card asz = null;
         Card tiz = null;
         for (Card card : cards) {
-            switch (card.getNumber()) {
+            switch (card.getRank()) {
                 case ASZ:
                     numberOfAsz++;
                     asz = card;
@@ -90,16 +90,16 @@ public class Computer extends Player {
         Card bottomCard = cardOnTable.get(0);
 
         for (Card card : cardOnTable) {
-            if (card.getNumber() == hu.zsir.game.model.Number.ASZ || card.getNumber() == hu.zsir.game.model.Number.TIZ) {
+            if (card.getRank() == hu.zsir.game.model.Rank.ASZ || card.getRank() == hu.zsir.game.model.Rank.TIZ) {
                 toPut = chooseTrampCard(cardOnTable.get(0));
                 break;
             }
         }
         if (toPut == null) {
-            if (bottomCard.getNumber() != hu.zsir.game.model.Number.TIZ && bottomCard.getNumber() != hu.zsir.game.model.Number.ASZ
-                    && bottomCard.getNumber() != hu.zsir.game.model.Number.HET) {
+            if (bottomCard.getRank() != hu.zsir.game.model.Rank.TIZ && bottomCard.getRank() != hu.zsir.game.model.Rank.ASZ
+                    && bottomCard.getRank() != hu.zsir.game.model.Rank.HET) {
                 for (Card card : cards) {
-                    if (bottomCard.getNumber() == card.getNumber()) {
+                    if (bottomCard.getRank() == card.getRank()) {
                         toPut = card;
                         break;
                     }
@@ -125,14 +125,14 @@ public class Computer extends Player {
     private Card chooseTrampCard(Card callingCard) {
         Card toPut = null;
         for (Card card : cards) {
-            if (card.getNumber() == callingCard.getNumber()) {
+            if (card.getRank() == callingCard.getRank()) {
                 toPut = card;
                 break;
             }
         }
         if (toPut == null) {
             for (Card card : cards) {
-                if (card.getNumber() == hu.zsir.game.model.Number.HET) {
+                if (card.getRank() == hu.zsir.game.model.Rank.HET) {
                     toPut = card;
                     break;
                 }
@@ -149,8 +149,8 @@ public class Computer extends Player {
     private Card chooseNonTrampCard() {
         Card toPut = null;
         for (Card card : cards) {
-            if (card.getNumber() != hu.zsir.game.model.Number.ASZ && card.getNumber() != hu.zsir.game.model.Number.TIZ
-                    && card.getNumber() != hu.zsir.game.model.Number.HET) {
+            if (card.getRank() != hu.zsir.game.model.Rank.ASZ && card.getRank() != hu.zsir.game.model.Rank.TIZ
+                    && card.getRank() != hu.zsir.game.model.Rank.HET) {
                 toPut = card;
             }
         }
