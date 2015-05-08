@@ -42,30 +42,16 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.7</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>Zsir</finalName>
-        <plugins>
-            <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.1.2</version>
-                <configuration>
-                    <mainClass>hu.zsir.Main</mainClass>
-                    <vendor>Ferenc Sipos</vendor>
-                    <needShortcut>true</needShortcut>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>native-packaging</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>native</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+        <plugins>            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -134,4 +120,32 @@
             </plugin>
         </plugins>
     </reporting>
+    <profiles>
+        <profile>
+            <id>windows-native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.zenjava</groupId>
+                        <artifactId>javafx-maven-plugin</artifactId>
+                        <version>8.1.2</version>
+                        <configuration>
+                            <mainClass>hu.zsir.Main</mainClass>
+                            <vendor>Ferenc Sipos</vendor>
+                            <needShortcut>true</needShortcut>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>native-packaging</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>native</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

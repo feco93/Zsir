@@ -29,6 +29,9 @@ import javafx.concurrent.Task;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -50,16 +53,15 @@ public class ScoreService extends Service<ObservableList<Person>> {
                 try {
                     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                    Document doc = dBuilder.parse(getClass().getResource("/files/input.xml").toString());
+                    Document doc = dBuilder.parse(ScoreTableUtils.getFile());
                     NodeList nlist = doc.getElementsByTagName("person");
 
                     for (int i = 0; i < nlist.getLength(); ++i) {
                         Element element = (Element) nlist.item(i);
                         String name = element.getElementsByTagName("name").item(0).getTextContent();
                         int score = Integer.valueOf(element.getElementsByTagName("score").item(0).getTextContent());
-                        SimpleDateFormat parser = new SimpleDateFormat("YYYY.MM.DD");
                         String date = element.getElementsByTagName("date").item(0).getTextContent();
-                        Person person = new Person(name, score, date);
+                        Person person = new Person(name, score, LocalDate.parse(date, DateTimeFormat.forPattern("YYYY-MM-DD")).toString());
                         persons.add(person);
                     }
 

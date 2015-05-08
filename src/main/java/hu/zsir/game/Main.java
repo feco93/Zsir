@@ -17,6 +17,7 @@
 package hu.zsir.game;
 
 import hu.zsir.scoretable.AddPersonStage;
+import hu.zsir.scoretable.AddPersonWindowController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -30,12 +31,12 @@ import javafx.stage.Stage;
  * @author Feco
  */
 public class Main extends Application {
-    
+
     public static Stage mainWindow;
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainWindow.fxml"));   
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainWindow.fxml"));
         mainWindow = stage;
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -43,7 +44,10 @@ public class Main extends Application {
         stage.setTitle("Zsir");
         stage.getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         stage.show();
-        
+        AddPersonWindowController.setScore(10);
+        AddPersonStage.getAddpersonstage().initOwner(mainWindow);
+        AddPersonStage.getAddpersonstage().show();
+
     }
 
     /**

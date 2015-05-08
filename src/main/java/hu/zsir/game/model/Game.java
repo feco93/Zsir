@@ -68,7 +68,8 @@ public class Game {
         deck = new Deck();
         playerA = new Human();
         playerB = new Computer();
-        table = new Table();currentplayer = playerA;
+        table = new Table();
+        currentplayer = playerA;
         nextplayer = playerB;
     }
 

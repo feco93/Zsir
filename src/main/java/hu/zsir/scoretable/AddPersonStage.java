@@ -37,8 +37,8 @@ public class AddPersonStage extends Stage {
 
     private AddPersonStage() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(getClass().getResourceAsStream("/fxml/addPersonWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addPersonWindow.fxml"));
+            Parent root = loader.load();
             root.getStylesheets().add(getClass().getResource("/styles/addpersonwindow.css").toExternalForm());
             Scene scene = new Scene(root);
             setScene(scene);

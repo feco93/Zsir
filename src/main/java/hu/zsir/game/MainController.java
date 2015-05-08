@@ -22,6 +22,7 @@ import hu.zsir.game.operators.CheckOperator;
 import hu.zsir.game.view.CardsInHands;
 import hu.zsir.game.view.CardsOnTable;
 import hu.zsir.scoretable.AddPersonStage;
+import hu.zsir.scoretable.AddPersonWindowController;
 import hu.zsir.scoretable.ScoreDialog;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -71,6 +72,7 @@ public class MainController implements Initializable {
             if (flag) {
                 gameTask.restart();
             } else {
+                AddPersonWindowController.setScore(game.getPlayerA().getScore());
                 AddPersonStage.getAddpersonstage().initOwner(mainWindow);
                 AddPersonStage.getAddpersonstage().show();
             }
@@ -87,7 +89,7 @@ public class MainController implements Initializable {
     private void check(ActionEvent event) {
         if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
             CheckOperator.getCheckoperator().apply(game);
-        } 
+        }
     }
 
     @FXML

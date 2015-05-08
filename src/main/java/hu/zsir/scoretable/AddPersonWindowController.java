@@ -16,20 +16,36 @@
  */
 package hu.zsir.scoretable;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import org.joda.time.LocalDate;
+import org.xml.sax.SAXException;
 
 /**
  * FXML Controller class
  *
  * @author Feco
  */
-public class AddPersonWindowController implements Initializable {
+public class AddPersonWindowController {
+
+    private static int score;
+
+    public static void setScore(int score) {
+        AddPersonWindowController.score = score;
+    }
 
     public AddPersonWindowController() {
 
@@ -42,13 +58,6 @@ public class AddPersonWindowController implements Initializable {
     @FXML
     private Text warningText;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
-
     @FXML
     private void cancel() {
         AddPersonStage.getAddpersonstage().close();
@@ -58,11 +67,10 @@ public class AddPersonWindowController implements Initializable {
     private void savePerson() {
         if (nameField.getText().isEmpty()) {
             warningText.setVisible(true);
-        }
-        else {
-            System.out.println(nameField.getText());
+        } else {
+            Person newPerson = new Person(nameField.getText(), score, LocalDate.now().toString());
+            ScoreTableUtils.addPerson(newPerson);
             AddPersonStage.getAddpersonstage().close();
         }
     }
-
 }

@@ -16,61 +16,101 @@
  */
 package hu.zsir.scoretable;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- *
+ * A model class for Person.
+ * 
  * @author Feco
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
-    private final StringProperty name;
-    private final IntegerProperty score;
-    private final StringProperty date;
+    /**
+     * The name of the person.
+     */
+    private String name;
+    /**
+     * The score of the person.
+     */
+    private Integer score;
+    /**
+     * The date of the game.
+     */
+    private String date;
 
+    /**
+     * Constructs a new Person object with the specified parameters.
+     * 
+     * @param name the name of the person
+     * @param score the score of the person
+     * @param date the date of the game
+     */
     public Person(String name, Integer score, String date) {
-        this.name = new SimpleStringProperty(this, "name", name);
-        this.score = new SimpleIntegerProperty(this, "score", score);
-        this.date = new SimpleStringProperty(this, "date", date);
+        this.name = name;
+        this.score = score;
+        this.date = date;
     }
 
-    public StringProperty getName() {
+    /**
+     * Contructs a new Person object.
+     */
+    public Person() {
+    }
+
+    /**
+     * Gets the name of the person.
+     * 
+     * @return the name of the person
+     */
+    public String getName() {
         return name;
     }
-    
-    public StringProperty nameProperty() {
-          return name;
-     }
 
-    public IntegerProperty getScore() {
-        return score;
-    }
-    
-    public IntegerProperty scoreProperty() {
-        return score;
-    }
-
-    public StringProperty getDate() {
-        return date;
-    }
-    
-    public StringProperty dateProperty() {
-        return date;
-    }
-    
+    /**
+     * Sets the name of the person with the specified value.
+     * 
+     * @param name the specified name
+     */
     public void setName(String name) {
-        this.name.set(name);
+        this.name = name;
     }
-    
+
+    /**
+     * Gets the score of the person.
+     * 
+     * @return the score of the person
+     */
+    public Integer getScore() {
+        return score;
+    }
+
+    /**
+     * Sets the score with the specified value.
+     * 
+     * @param score the specified score
+     */
     public void setScore(Integer score) {
-        this.score.set(score);
+        this.score = score;
     }
-    
+
+    /**
+     * Gets the date of the game.
+     * 
+     * @return the date of the game
+     */
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     * Sets the date of the game with the specified date.
+     * 
+     * @param date the specified date
+     */
     public void setDate(String date) {
-        this.date.set(date);
+        this.date = date;
     }
 
 }

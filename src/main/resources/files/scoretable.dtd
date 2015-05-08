@@ -1,0 +1,6 @@
+<!ELEMENT scoretable (persons)>
+<!ELEMENT persons (person*)>
+<!ELEMENT person (name,score,date)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT score (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
