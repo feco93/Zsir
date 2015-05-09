@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="mainPane" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.zsir.scoretable.AddPersonWindowController">
+<GridPane fx:id="mainPane" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.zsir.scoretable.AddPersonDialogController">
    <columnConstraints>
       <ColumnConstraints maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
       <ColumnConstraints maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />

@@ -16,53 +16,60 @@
  */
 package hu.zsir.scoretable;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
 import org.joda.time.LocalDate;
-import org.xml.sax.SAXException;
 
 /**
  * FXML Controller class
  *
  * @author Feco
  */
-public class AddPersonWindowController {
+public class AddPersonDialogController {
 
+    /**
+     * The score of the person.
+     */
     private static int score;
 
+    /**
+     * Sets the value of the score.
+     * 
+     * @param score the specified score
+     */
     public static void setScore(int score) {
-        AddPersonWindowController.score = score;
+        AddPersonDialogController.score = score;
     }
 
-    public AddPersonWindowController() {
-
-    }
-
+    /**
+     * The main pane of the add person window.
+     */
     @FXML
     private GridPane mainPane;
+    /**
+     * The text field of the add person window.
+     */
     @FXML
     private TextField nameField;
+    /**
+     * A warning text that is visible if the text field is empty.
+     */
     @FXML
     private Text warningText;
 
+    /**
+     * Close the add person window.
+     */
     @FXML
     private void cancel() {
-        AddPersonStage.getAddpersonstage().close();
+        AddPersonDialog.getAddpersonstage().close();
     }
 
+    /**
+     * Save a person into the score table xml file and close the window.
+     */
     @FXML
     private void savePerson() {
         if (nameField.getText().isEmpty()) {
@@ -70,7 +77,7 @@ public class AddPersonWindowController {
         } else {
             Person newPerson = new Person(nameField.getText(), score, LocalDate.now().toString());
             ScoreTableUtils.addPerson(newPerson);
-            AddPersonStage.getAddpersonstage().close();
+            cancel();
         }
     }
 }

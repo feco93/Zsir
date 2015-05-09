@@ -18,7 +18,6 @@ package hu.zsir.scoretable;
 
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 
@@ -26,12 +25,12 @@ import javafx.scene.control.TableView;
  *
  * @author Feco
  */
-public class ScoreController {
+public class ScoreTableController {
     
     @FXML
     private TableView<Person> tableview;
     
-    private ScoreService scoreservice = new ScoreService();
+    private final ScoreTable scoreservice = new ScoreTable();
     
     public void initialize() {
         scoreservice.start();

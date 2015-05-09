@@ -23,32 +23,48 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
- *
+ * A stage for add a person into the score tabe.
+ * 
  * @author Feco
  */
-public class ScoreDialog extends Stage {
+public class AddPersonDialog extends Stage {
 
-    private static ScoreDialog dialog = new ScoreDialog();
+    /**
+     * The add person stage.
+     */
+    private static final AddPersonDialog addpersonstage = new AddPersonDialog();
 
-    private ScoreDialog() {
-        super();
+    /**
+     * Contructs the add person stage.
+     */
+    private AddPersonDialog() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/scoreWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addPersonWindow.fxml"));
+            Parent root = loader.load();
+            root.getStylesheets().add(getClass().getResource("/styles/addpersonwindow.css").toExternalForm());
             Scene scene = new Scene(root);
             setScene(scene);
             setResizable(false);
-            setTitle("Score table");
+            initStyle(StageStyle.UTILITY);
+            initModality(Modality.WINDOW_MODAL);
             getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         } catch (IOException ex) {
-            Logger.getLogger(ScoreDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddPersonDialogController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static ScoreDialog getDialog() {
-        return dialog;
+    /**
+     * Gets the add person stage.
+     * 
+     * @return the add person stage
+     */
+    public static AddPersonDialog getAddpersonstage() {
+        return addpersonstage;
     }
 
 }

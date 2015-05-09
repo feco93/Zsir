@@ -66,7 +66,7 @@ public class Computer extends Player {
     /**
      * Chooses a random card from the cards of this player.
      *
-     * @return
+     * @return the choosed card
      */
     private Card chooseRandomCard() {
         Random rand = new Random();

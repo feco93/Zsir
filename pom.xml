@@ -116,6 +116,9 @@
                 <version>2.10.3</version>
                 <configuration>
                     <show>private</show>
+                    <links>
+                        <link>https://docs.oracle.com/javase/8/javafx/api/</link>
+                    </links>
                 </configuration>
             </plugin>
         </plugins>

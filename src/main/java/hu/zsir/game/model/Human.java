@@ -65,7 +65,7 @@ public class Human extends Player {
     /**
      * Waits for choosing an operator then apply it.
      *
-     * @param game
+     * @param game state of the game
      */
     @Override
     synchronized public void chooseOperator(Game game) {

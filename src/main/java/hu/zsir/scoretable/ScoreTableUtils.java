@@ -24,7 +24,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -52,7 +51,7 @@ import org.xml.sax.XMLReader;
 
 /**
  * Class for manipulating the stored score table.
- * 
+ *
  * @author Feco
  */
 public class ScoreTableUtils {
@@ -73,30 +72,6 @@ public class ScoreTableUtils {
     static {
         String homeDir = System.getProperty("user.home");
         mainDir = Paths.get(homeDir, ".Zsir");
-        Path destPath = Paths.get(mainDir.toString(), "scoretable.dtd");
-        try {
-            Files.copy(Paths.get(ScoreTableUtils.class.getResource("/files/scoretable.dtd").toURI()),
-                    destPath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException | URISyntaxException ex) {
-            Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Path xmlFile = Paths.get(mainDir.toString(), "scoretable.xml");
-        if (!Files.exists(mainDir)) {
-            try {
-                Files.createDirectory(mainDir);
-            } catch (IOException ex) {
-                Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if (!Files.exists(xmlFile)) {
-            createXml(xmlFile);
-        } else {
-            XMLFile = xmlFile.toFile();
-            validate();
-            if (!isValid()) {
-                initFile();
-            }
-        }
     }
 
     /**
@@ -119,7 +94,7 @@ public class ScoreTableUtils {
 
     /**
      * Adds the specified new Person element to the xml file.
-     * 
+     *
      * @param newPerson the person to be added to the xml file
      */
     public static void addPerson(Person newPerson) {
@@ -130,11 +105,10 @@ public class ScoreTableUtils {
             SAXParserFactory spf = SAXParserFactory.newInstance();
             spf.setValidating(false);
             XMLReader xmlReader = spf.newSAXParser().getXMLReader();
-            xmlReader.setEntityResolver((String publicId, String systemId) -> 
-                    new InputSource(Paths.get(mainDir.toString(), "scoretable.dtd").toString()));
+            xmlReader.setEntityResolver((String publicId, String systemId)
+                    -> new InputSource(Paths.get(mainDir.toString(), "scoretable.dtd").toString()));
             InputSource inputSource = new InputSource(new FileReader(getFile()));
             SAXSource source = new SAXSource(xmlReader, inputSource);
-            
 
             Persons persons = (Persons) unmarshaller.unmarshal(source);
             persons.addPerson(newPerson);
@@ -153,8 +127,8 @@ public class ScoreTableUtils {
 
     /**
      * Writes out the specified document into the xml file.
-     * 
-     * @param doc 
+     *
+     * @param doc the specified document
      */
     private static void write(Document doc) {
         try {
@@ -174,7 +148,7 @@ public class ScoreTableUtils {
 
     /**
      * Creates the xml file and inits it.
-     * 
+     *
      * @param file the file to be created
      */
     private static void createXml(Path file) {
@@ -211,7 +185,7 @@ public class ScoreTableUtils {
                     setValid(false);
                 }
             });
-            Document doc = builder.parse(getFile());
+            Document doc = builder.parse(XMLFile);
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -219,29 +193,64 @@ public class ScoreTableUtils {
 
     /**
      * Indicates whether the xml file is valid.
-     * 
+     *
      * @return true if the xml file is valid
      */
-    public static boolean isValid() {
+    private static boolean isValid() {
         return valid;
     }
 
     /**
      * Sets the value of the valid property.
-     * 
+     *
      * @param valid the specified value
      */
-    public static void setValid(boolean valid) {
+    private static void setValid(boolean valid) {
         ScoreTableUtils.valid = valid;
     }
 
     /**
      * Gets the xml file.
-     * 
+     *
      * @return the xml file
      */
     public static File getFile() {
+        initEnvironment();
         return XMLFile;
+    }
+
+    /**
+     * Inits the environment of the score table.
+     */
+    private static void initEnvironment() {
+        Path dtdPath = Paths.get(mainDir.toString(), "scoretable.dtd");
+        Path xmlPath = Paths.get(mainDir.toString(), "scoretable.xml");
+        
+        if (!Files.exists(mainDir)) {
+            try {
+                Files.createDirectory(mainDir);
+            } catch (IOException ex) {
+                Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (!Files.exists(dtdPath)) {
+            try {
+                Files.copy(Paths.get(ScoreTableUtils.class.getResource("/files/scoretable.dtd").toURI()), dtdPath);
+            } catch (IOException | URISyntaxException ex) {
+                Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+        
+        if (!Files.exists(xmlPath)) {
+            createXml(xmlPath);
+        } else {
+            XMLFile = xmlPath.toFile();
+            validate();
+            if (!isValid()) {
+                initFile();
+            }
+        }
     }
 
 }

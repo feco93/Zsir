@@ -22,22 +22,42 @@ import hu.zsir.game.model.Rank;
 import java.util.List;
 
 /**
- *
+ * A model class for beat operator.
+ * 
+ * The beat operator beats the cards on the table.
+ * 
  * @author Feco
  */
 public class BeatOperator implements Operator {
 
-    private static BeatOperator beatoperator = new BeatOperator();
+    /**
+     * The beat operator.
+     */
+    private static final BeatOperator beatoperator = new BeatOperator();
 
+    /**
+     * Constructs a beat operator.
+     */
     private BeatOperator() {
     }
 
+    /**
+     * Indicates whether the beat operator is applicable.
+     * 
+     * @param game the state of the game
+     * @return true if the beat operator is applicable
+     */
     @Override
     public boolean isApplicable(Game game) {
         return game.getNextplayer().isChecked() || (game.getTable().getCards().size() > 0 && game.getTable().getCards().size() % 2 == 0 && (game.getTable().getBottomCard().getRank() != game.getTable().getTopCard().getRank()
                 && game.getTable().getTopCard().getRank() != Rank.HET));
     }
 
+    /**
+     * Applies the beat operator on the specified state of the game.
+     * 
+     * @param game the state of the game
+     */
     @Override
     public void apply(Game game) {
         game.getCurrentplayer().addScore(computeScore(game.getTable().getCards()));
@@ -48,10 +68,21 @@ public class BeatOperator implements Operator {
         }
     }
 
+    /**
+     * Gets the beat operator.
+     * 
+     * @return the beat operator
+     */
     public static BeatOperator getBeatoperator() {
         return beatoperator;
     }
 
+    /**
+     * Computes the score.
+     * 
+     * @param cards the cards on the table
+     * @return the score
+     */
     private int computeScore(List<Card> cards) {
         int score = 0;
         for (Card card : cards) {

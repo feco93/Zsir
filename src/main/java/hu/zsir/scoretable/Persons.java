@@ -48,7 +48,7 @@ public class Persons {
     /**
      * Constructs a new Persons object with the specified list of persons.
      * 
-     * @param persons 
+     * @param persons the specified list of persons
      */
     public Persons(List<Person> persons) {
         this.persons = persons;

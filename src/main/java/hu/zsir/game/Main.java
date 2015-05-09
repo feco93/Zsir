@@ -16,8 +16,8 @@
  */
 package hu.zsir.game;
 
-import hu.zsir.scoretable.AddPersonStage;
-import hu.zsir.scoretable.AddPersonWindowController;
+import hu.zsir.scoretable.AddPersonDialog;
+import hu.zsir.scoretable.AddPersonDialogController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -44,9 +44,9 @@ public class Main extends Application {
         stage.setTitle("Zsir");
         stage.getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         stage.show();
-        AddPersonWindowController.setScore(10);
-        AddPersonStage.getAddpersonstage().initOwner(mainWindow);
-        AddPersonStage.getAddpersonstage().show();
+        AddPersonDialogController.setScore(10);
+        AddPersonDialog.getAddpersonstage().initOwner(mainWindow);
+        AddPersonDialog.getAddpersonstage().show();
 
     }
 

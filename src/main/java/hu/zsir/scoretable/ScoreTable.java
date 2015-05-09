@@ -17,7 +17,6 @@
 package hu.zsir.scoretable;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,24 +30,34 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Service for parsing the score table xml file.
+ * 
  * @author Feco
  */
-public class ScoreService extends Service<ObservableList<Person>> {
+public class ScoreTable extends Service<ObservableList<Person>> {
 
+    /**
+     * Creates the specified task.
+     * 
+     * @return the executable task
+     */
     @Override
     protected Task<ObservableList<Person>> createTask() {
         return new Task<ObservableList<Person>>() {
 
+            /**
+             * Executes the task.
+             * 
+             * @return an observable list of persons             
+             */
             @Override
-            protected ObservableList<Person> call() throws Exception {
+            protected ObservableList<Person> call() {
                 List<Person> persons = new ArrayList<>();
                 try {
                     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -66,7 +75,7 @@ public class ScoreService extends Service<ObservableList<Person>> {
                     }
 
                 } catch (ParserConfigurationException | SAXException | IOException ex) {
-                    Logger.getLogger(ScoreController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ScoreTableController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 ObservableList<Person> list = FXCollections.observableArrayList(persons);
                 return list;
