@@ -1,4 +1,3 @@
-# Zsir
-The Hungarian zsír card game
+# Zsír
 
-TODO
+The classic Hungarian zsír card game.
