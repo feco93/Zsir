@@ -16,6 +16,7 @@
  */
 package hu.zsir.scoretable;
 
+import static hu.zsir.game.Main.mainWindow;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * A stage for display the score table.
@@ -47,6 +50,9 @@ public class ScoreTableDialog extends Stage {
             Scene scene = new Scene(root);
             setScene(scene);
             setResizable(false);
+            initOwner(mainWindow);
+            initStyle(StageStyle.UTILITY);
+            initModality(Modality.WINDOW_MODAL);
             setTitle("Score table");
             getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         } catch (IOException ex) {

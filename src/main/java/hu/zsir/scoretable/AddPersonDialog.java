@@ -16,6 +16,7 @@
  */
 package hu.zsir.scoretable;
 
+import static hu.zsir.game.Main.mainWindow;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ public class AddPersonDialog extends Stage {
             Scene scene = new Scene(root);
             setScene(scene);
             setResizable(false);
+            initOwner(mainWindow);
             initStyle(StageStyle.UTILITY);
             initModality(Modality.WINDOW_MODAL);
             getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));

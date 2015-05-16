@@ -28,8 +28,6 @@ import javafx.concurrent.Task;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -70,7 +68,7 @@ public class ScoreTable extends Service<ObservableList<Person>> {
                         String name = element.getElementsByTagName("name").item(0).getTextContent();
                         int score = Integer.valueOf(element.getElementsByTagName("score").item(0).getTextContent());
                         String date = element.getElementsByTagName("date").item(0).getTextContent();
-                        Person person = new Person(name, score, LocalDate.parse(date, DateTimeFormat.forPattern("YYYY-MM-DD")).toString());
+                        Person person = new Person(name, score, date);
                         persons.add(person);
                     }
 

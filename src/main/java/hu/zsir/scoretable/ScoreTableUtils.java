@@ -72,6 +72,7 @@ public class ScoreTableUtils {
     static {
         String homeDir = System.getProperty("user.home");
         mainDir = Paths.get(homeDir, ".Zsir");
+        initEnvironment();
     }
 
     /**
@@ -135,7 +136,7 @@ public class ScoreTableUtils {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(getFile());
+            StreamResult result = new StreamResult(XMLFile);
             transformer.setOutputProperty(
                     OutputKeys.DOCTYPE_SYSTEM, "scoretable.dtd");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -215,7 +216,6 @@ public class ScoreTableUtils {
      * @return the xml file
      */
     public static File getFile() {
-        initEnvironment();
         return XMLFile;
     }
 

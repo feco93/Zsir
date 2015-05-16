@@ -16,7 +16,6 @@
  */
 package hu.zsir.game;
 
-import static hu.zsir.game.Main.mainWindow;
 import hu.zsir.game.model.Game;
 import hu.zsir.game.operators.CheckOperator;
 import hu.zsir.game.view.CardsInHands;
@@ -72,8 +71,7 @@ public class MainController implements Initializable {
             if (flag) {
                 gameTask.restart();
             } else {
-                AddPersonDialogController.setScore(game.getPlayerA().getScore());
-                AddPersonDialog.getAddpersonstage().initOwner(mainWindow);
+                AddPersonDialogController.setScore(game.getPlayerA().getScore());                
                 AddPersonDialog.getAddpersonstage().show();
             }
         });

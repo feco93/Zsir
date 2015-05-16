@@ -44,9 +44,6 @@ public class Main extends Application {
         stage.setTitle("Zsir");
         stage.getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         stage.show();
-        AddPersonDialogController.setScore(10);
-        AddPersonDialog.getAddpersonstage().initOwner(mainWindow);
-        AddPersonDialog.getAddpersonstage().show();
 
     }
 
