@@ -20,18 +20,22 @@ import hu.zsir.game.model.Card;
 import hu.zsir.game.model.Game;
 import hu.zsir.game.model.Rank;
 import hu.zsir.game.model.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Feco
  */
 public class CallOperator implements Operator {
-    
+
+    private static final Logger logger = LoggerFactory.getLogger(CallOperator.class);
+
     private static CallOperator calloperator = new CallOperator();
-    
+
     private CallOperator() {
     }
-    
+
     @Override
     public boolean isApplicable(Game game) {
         return (!game.getCurrentplayer().cards.isEmpty()) && !game.getNextplayer().isChecked()
@@ -39,7 +43,7 @@ public class CallOperator implements Operator {
                 && (game.getTable().getCards().isEmpty() || game.getTable().getCards().size() % 2 == 1
                 || canCall(game.getCurrentplayer(), game.getTable().getCards().get(0)));
     }
-    
+
     @Override
     public void apply(Game game) {
         Card card = game.getCurrentplayer().putCard();
@@ -47,8 +51,9 @@ public class CallOperator implements Operator {
         game.getTable().addCard(card);
         game.getCurrentplayer().setChoosedCard(null);
         game.swapPlayers();
+        logger.trace("Apply call operator.");
     }
-    
+
     private boolean canCall(Player currentplayer, Card firstcard) {
         for (Card card : currentplayer.cards) {
             if (card.getRank() == firstcard.getRank() || card.getRank() == Rank.HET) {
@@ -57,9 +62,14 @@ public class CallOperator implements Operator {
         }
         return false;
     }
-    
+
     public static CallOperator getCallOperator() {
         return calloperator;
-    }    
-    
+    }
+
+    @Override
+    public String toString() {
+        return "CallOperator";
+    }
+
 }

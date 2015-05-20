@@ -17,12 +17,16 @@
 package hu.zsir.game.operators;
 
 import hu.zsir.game.model.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Feco
  */
 public class DrawOperator implements Operator {
+
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
     private static DrawOperator drawoperator = new DrawOperator();
 
@@ -38,10 +42,16 @@ public class DrawOperator implements Operator {
     public void apply(Game game) {
         game.getCurrentplayer().addCards(game.getDeck().getCards(4 - game.getCurrentplayer().cards.size()));
         game.getNextplayer().addCards(game.getDeck().getCards(4 - game.getNextplayer().cards.size()));
+        logger.trace("Apply draw operator.");
     }
 
     public static DrawOperator getDrawoperator() {
         return drawoperator;
+    }
+
+    @Override
+    public String toString() {
+        return "DrawOperator";
     }
 
 }

@@ -25,12 +25,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Model class for game.
  *
  * @author Feco
  */
 public class Game {
+
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
     /**
      * Player A of the game.
@@ -76,7 +82,7 @@ public class Game {
     /**
      * Starts the game.
      */
-    public void start() {        
+    public void start() {
         DrawOperator.getDrawoperator().apply(this);
     }
 
@@ -154,17 +160,25 @@ public class Game {
 
     /**
      * Execute the next turn in this game.
-     * 
+     *
      * @return true if the game is not over
      */
     public boolean nextLoop() {
         if (!isGoal()) {
             List<Operator> applicableOperators = new ArrayList<>();
-            System.out.println("-------------------");
+            String player;
+            if (getCurrentplayer().isHuman()) {
+                player = "Human the current player";
+            }
+            else {
+                player = "Computer the current player";
+            }
+            logger.trace(player);
+            logger.trace("The applicable operators are:");
             for (Operator op : operators) {
                 if (op.isApplicable(this)) {
                     applicableOperators.add(op);
-                    System.out.println(op.toString());
+                    logger.trace(op.toString());
                 }
             }
             if (applicableOperators.size() == 1) {

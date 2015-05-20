@@ -16,8 +16,6 @@
  */
 package hu.zsir.game;
 
-import hu.zsir.scoretable.AddPersonDialog;
-import hu.zsir.scoretable.AddPersonDialogController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;

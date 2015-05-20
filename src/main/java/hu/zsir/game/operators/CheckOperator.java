@@ -17,12 +17,16 @@
 package hu.zsir.game.operators;
 
 import hu.zsir.game.model.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Feco
  */
 public class CheckOperator implements Operator {
+
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
     private static CheckOperator checkoperator = new CheckOperator();
 
@@ -38,10 +42,16 @@ public class CheckOperator implements Operator {
     public void apply(Game game) {
         game.getCurrentplayer().check();
         game.swapPlayers();
+        logger.trace("Apply check operator.");
     }
 
     public static CheckOperator getCheckoperator() {
         return checkoperator;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckOperator";
     }
 
 }

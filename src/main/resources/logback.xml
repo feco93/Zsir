@@ -1,0 +1,40 @@
+<!--
+	Ha a scan attribútum értékét "true"-ra módosítjuk, akkor a Logback
+	percenként ellenőrzi, hogy változott-e a konfigurációs állomány.
+	Változás esetén megfelelően igazítja hozzá a beállításokat. Az állomány
+	így akár futásidőben is módosítható.
+-->
+<configuration scan="false" debug="false">
+
+	<!-- A konzolon minden eseményt naplózunk -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %boldBlue(%.-1level) %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--
+		Az állományba csak adott szintű eseményeket naplózunk (a
+		jelenlegi beállítás esetén csak TRACE szintű eseményeket)
+	-->
+	<appender name="TRACE" class="ch.qos.logback.core.FileAppender">
+		<file>trace.log</file>
+		<append>false</append>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>TRACE</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--
+		A gyökér logger mindent az állományokba naplóz
+	-->
+	<root level="ALL">
+		<appender-ref ref="TRACE"/>
+	</root>
+
+</configuration>

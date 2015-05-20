@@ -20,6 +20,8 @@ import hu.zsir.game.model.Card;
 import hu.zsir.game.model.Game;
 import hu.zsir.game.model.Rank;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A model class for beat operator.
@@ -29,6 +31,8 @@ import java.util.List;
  * @author Feco
  */
 public class BeatOperator implements Operator {
+    
+    private static final Logger logger = LoggerFactory.getLogger(BeatOperator.class);
 
     /**
      * The beat operator.
@@ -66,6 +70,7 @@ public class BeatOperator implements Operator {
         if (DrawOperator.getDrawoperator().isApplicable(game)) {
             DrawOperator.getDrawoperator().apply(game);
         }
+        logger.trace("Apply beat operator.");
     }
 
     /**
@@ -92,5 +97,10 @@ public class BeatOperator implements Operator {
         }
         return score;
     }
+
+    @Override
+    public String toString() {
+        return "BeatOperator";
+    }   
 
 }
