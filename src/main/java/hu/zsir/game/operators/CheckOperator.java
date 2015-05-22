@@ -28,16 +28,27 @@ public class CheckOperator implements Operator {
 
     private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
-    private static CheckOperator checkoperator = new CheckOperator();
+    /**
+     * The check operator.
+     */
+    private static final CheckOperator checkoperator = new CheckOperator();
 
-    private CheckOperator() {
-    }
-
+    /**
+     * Indicates whether the check operator is applicable.
+     *
+     * @param game the state of the game
+     * @return true if the check operator is applicable
+     */
     @Override
     public boolean isApplicable(Game game) {
         return !game.getTable().getCards().isEmpty() && !BeatOperator.getBeatoperator().isApplicable(game) && game.getTable().getCards().size() % 2 == 0;
     }
 
+    /**
+     * Applies the check operator on the specified state of the game.
+     *
+     * @param game the state of the game
+     */
     @Override
     public void apply(Game game) {
         game.getCurrentplayer().check();
@@ -45,10 +56,20 @@ public class CheckOperator implements Operator {
         logger.trace("Apply check operator.");
     }
 
+    /**
+     * Gets the check operator.
+     * 
+     * @return the check operator
+     */
     public static CheckOperator getCheckoperator() {
         return checkoperator;
     }
 
+    /**
+     * Gets the string representation of the check operator.
+     * 
+     * @return the string representation of the check operator
+     */
     @Override
     public String toString() {
         return "CheckOperator";

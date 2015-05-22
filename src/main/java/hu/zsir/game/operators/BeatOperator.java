@@ -25,13 +25,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A model class for beat operator.
- * 
+ *
  * The beat operator beats the cards on the table.
- * 
+ *
  * @author Feco
  */
 public class BeatOperator implements Operator {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(BeatOperator.class);
 
     /**
@@ -40,14 +40,8 @@ public class BeatOperator implements Operator {
     private static final BeatOperator beatoperator = new BeatOperator();
 
     /**
-     * Constructs a beat operator.
-     */
-    private BeatOperator() {
-    }
-
-    /**
      * Indicates whether the beat operator is applicable.
-     * 
+     *
      * @param game the state of the game
      * @return true if the beat operator is applicable
      */
@@ -59,7 +53,7 @@ public class BeatOperator implements Operator {
 
     /**
      * Applies the beat operator on the specified state of the game.
-     * 
+     *
      * @param game the state of the game
      */
     @Override
@@ -75,7 +69,7 @@ public class BeatOperator implements Operator {
 
     /**
      * Gets the beat operator.
-     * 
+     *
      * @return the beat operator
      */
     public static BeatOperator getBeatoperator() {
@@ -84,7 +78,7 @@ public class BeatOperator implements Operator {
 
     /**
      * Computes the score.
-     * 
+     *
      * @param cards the cards on the table
      * @return the score
      */
@@ -98,9 +92,14 @@ public class BeatOperator implements Operator {
         return score;
     }
 
+    /**
+     * Gets the string representation of the beat operator.
+     * 
+     * @return the string representation of the beat operator
+     */
     @Override
     public String toString() {
         return "BeatOperator";
-    }   
+    }
 
 }

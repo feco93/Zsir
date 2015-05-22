@@ -21,6 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A model class for draw operator.
+ *
+ * The draw operator draws cards from the table.
  *
  * @author Feco
  */
@@ -28,27 +31,47 @@ public class DrawOperator implements Operator {
 
     private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
-    private static DrawOperator drawoperator = new DrawOperator();
+    /**
+     * The draw operator.
+     */
+    private static final DrawOperator drawoperator = new DrawOperator();
 
-    private DrawOperator() {
-    }
-
+    /**
+     * Indicates whether the draw operator is applicable.
+     *
+     * @param game the state of the game
+     * @return true if the draw operator is applicable
+     */
     @Override
     public boolean isApplicable(Game game) {
         return !game.getDeck().isEmpty() && game.getCurrentplayer().cards.size() < 4 && game.getNextplayer().cards.size() < 4;
     }
 
+    /**
+     * Applies the draw operator on the specified state of the game.
+     *
+     * @param game the state of the game
+     */
     @Override
     public void apply(Game game) {
         game.getCurrentplayer().addCards(game.getDeck().getCards(4 - game.getCurrentplayer().cards.size()));
         game.getNextplayer().addCards(game.getDeck().getCards(4 - game.getNextplayer().cards.size()));
         logger.trace("Apply draw operator.");
     }
-
+/**
+     * Gets the draw operator.
+     *
+     * @return the draw operator
+     */
     public static DrawOperator getDrawoperator() {
         return drawoperator;
     }
 
+    /**
+     * Gets the string representation of the draw operator.
+     * 
+     * @return the string representation of the draw operator
+     */
     @Override
     public String toString() {
         return "DrawOperator";

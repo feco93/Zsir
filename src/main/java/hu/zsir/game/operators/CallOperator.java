@@ -24,6 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A model class for call operator.
+ *
+ * The call operator call a card into the table.
  *
  * @author Feco
  */
@@ -31,11 +34,17 @@ public class CallOperator implements Operator {
 
     private static final Logger logger = LoggerFactory.getLogger(CallOperator.class);
 
-    private static CallOperator calloperator = new CallOperator();
+    /**
+     * The call operator.
+     */
+    private static final CallOperator calloperator = new CallOperator();
 
-    private CallOperator() {
-    }
-
+    /**
+     * Indicates whether the call operator is applicable.
+     *
+     * @param game the state of the game
+     * @return true if the call operator is applicable
+     */
     @Override
     public boolean isApplicable(Game game) {
         return (!game.getCurrentplayer().cards.isEmpty()) && !game.getNextplayer().isChecked()
@@ -44,6 +53,11 @@ public class CallOperator implements Operator {
                 || canCall(game.getCurrentplayer(), game.getTable().getCards().get(0)));
     }
 
+    /**
+     * Applies the call operator on the specified state of the game.
+     *
+     * @param game the state of the game
+     */
     @Override
     public void apply(Game game) {
         Card card = game.getCurrentplayer().putCard();
@@ -54,6 +68,13 @@ public class CallOperator implements Operator {
         logger.trace("Apply call operator.");
     }
 
+    /**
+     * Indicates whether the specified player can call.
+     *
+     * @param currentplayer the current player
+     * @param firstcard first card on the table
+     * @return true if the specified player can call
+     */
     private boolean canCall(Player currentplayer, Card firstcard) {
         for (Card card : currentplayer.cards) {
             if (card.getRank() == firstcard.getRank() || card.getRank() == Rank.HET) {
@@ -63,10 +84,20 @@ public class CallOperator implements Operator {
         return false;
     }
 
+    /**
+     * Gets the call operator.
+     *
+     * @return the call operator
+     */
     public static CallOperator getCallOperator() {
         return calloperator;
     }
 
+    /**
+     * Gets the string representation of the call operator.
+     *
+     * @return the string representation of the call operator
+     */
     @Override
     public String toString() {
         return "CallOperator";

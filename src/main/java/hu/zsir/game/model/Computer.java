@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * Model class for a computer player.
+ * 
  * @author Feco
  */
 public class Computer extends Player {

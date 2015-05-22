@@ -19,6 +19,8 @@ package operatorsTest;
 import hu.zsir.game.model.Card;
 import hu.zsir.game.operators.CheckOperator;
 import hu.zsir.game.model.Game;
+import hu.zsir.game.model.Player;
+import hu.zsir.game.model.Rank;
 import hu.zsir.game.model.Suit;
 import org.junit.After;
 import org.junit.Before;
@@ -52,7 +54,7 @@ public class CheckOperatorTest {
 
     @Test
     public void canCheck() {
-        initTable(new Card(hu.zsir.game.model.Rank.ALSO, Suit.PIROS), new Card(hu.zsir.game.model.Rank.HET, Suit.MAKK));
+        initTable(new Card(Rank.ALSO, Suit.PIROS), new Card(Rank.HET, Suit.MAKK));
         assertTrue(checkoperator.isApplicable(game));
     }
     
@@ -63,7 +65,15 @@ public class CheckOperatorTest {
     
     @Test
     public void cantCheck() {
+        initTable(new Card(Rank.ALSO, Suit.MAKK));
         assertFalse(checkoperator.isApplicable(game));
+    }
+    
+    @Test
+    public void check() {
+        Player nextPlayer = game.getNextplayer();
+        checkoperator.apply(game);
+        assertSame(nextPlayer, game.getCurrentplayer());        
     }
 
     @After

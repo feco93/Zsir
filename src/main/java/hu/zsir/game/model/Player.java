@@ -136,7 +136,7 @@ public abstract class Player {
     }
 
     /**
-     * Sets the check field with the specified flag
+     * Sets the check field with the specified flag.
      *
      * @param flag the new value of the check field
      */

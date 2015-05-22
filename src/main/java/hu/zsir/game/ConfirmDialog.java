@@ -20,13 +20,20 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
 /**
- *
+ * A dialog for confirm to begin a new game.
+ * 
  * @author Feco
  */
 public class ConfirmDialog extends Dialog<ButtonType> {
 
-    private static ConfirmDialog dialog = new ConfirmDialog();
+    /**
+     * The confirm dialog.
+     */
+    private static final ConfirmDialog dialog = new ConfirmDialog();
 
+    /**
+     * Constructs a new confirm dialog.
+     */
     private ConfirmDialog() {
         super();
         setHeaderText("Are you sure want to begin new game?");
@@ -37,6 +44,11 @@ public class ConfirmDialog extends Dialog<ButtonType> {
         getDialogPane().getStylesheets().add(getClass().getResource("/styles/confirmdialog.css").toExternalForm());
     }
 
+    /**
+     * Gets the confirm dialog.
+     * 
+     * @return the confirm dialog
+     */
     public static ConfirmDialog getDialog() {
         return dialog;
     }

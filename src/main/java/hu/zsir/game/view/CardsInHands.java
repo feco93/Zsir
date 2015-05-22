@@ -23,13 +23,22 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 
 /**
- *
+ * Class for displaying the cards of the players.
+ * 
  * @author Feco
  */
 public class CardsInHands {
 
+    /**
+     * Cards of the players.
+     */
     private final ObservableList<ImageView> cards;
 
+    /**
+     * Constructs the card views which are in the players hands.
+     * 
+     * @param game the state of the game
+     */
     public CardsInHands(Game game) {
         cards = FXCollections.observableArrayList();
         int index = 0;
@@ -57,6 +66,11 @@ public class CardsInHands {
         }
     }
 
+    /**
+     * Gets the card views which are in the players hands.
+     * 
+     * @return the observablelist of the card views
+     */
     public ObservableList<ImageView> getCards() {
         return cards;
     }

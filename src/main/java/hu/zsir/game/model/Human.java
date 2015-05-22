@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Model class for Player.
+ * Model class for a human player.
  *
  * @author Feco
  */

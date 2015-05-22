@@ -27,11 +27,11 @@ import org.junit.Test;
  *
  * @author Feco
  */
-public class gameTest {
+public class GameTest {
 
     Game game;
 
-    public gameTest() {
+    public GameTest() {
     }
 
     @Before

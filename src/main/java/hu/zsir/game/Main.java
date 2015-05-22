@@ -30,6 +30,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /**
+     * The main window of the game.
+     */
     public static Stage mainWindow;
 
     @Override
