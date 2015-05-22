@@ -24,6 +24,7 @@ import hu.zsir.scoretable.AddPersonDialog;
 import hu.zsir.scoretable.AddPersonDialogController;
 import hu.zsir.scoretable.ScoreTableDialog;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -49,33 +51,18 @@ public class MainController implements Initializable {
 
     @FXML
     private void newGame(ActionEvent event) {
-        game = new Game();
-        game.start();
-        updateContent();
-        Service<Boolean> gameTask = new Service<Boolean>() {
-
-            @Override
-            protected Task<Boolean> createTask() {
-                return new Task<Boolean>() {
-
-                    @Override
-                    protected Boolean call() throws Exception {
-                        return game.nextLoop();
-                    }
-                };
+        if (game == null) {
+            startNewGame();
+        } else if (!game.isGoal()) {
+            ConfirmDialog confirmDialog = ConfirmDialog.getDialog();
+            Optional<ButtonType> result = confirmDialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                startNewGame();
             }
-        };
-        gameTask.setOnSucceeded((WorkerStateEvent event1) -> {
-            updateContent();
-            Boolean flag = (Boolean) event1.getSource().getValue();
-            if (flag) {
-                gameTask.restart();
-            } else {
-                AddPersonDialogController.setScore(game.getPlayerA().getScore());                
-                AddPersonDialog.getAddpersonstage().show();
-            }
-        });
-        gameTask.start();
+        }
+        else {
+            startNewGame();
+        }
     }
 
     @FXML
@@ -97,6 +84,37 @@ public class MainController implements Initializable {
     }
 
     private Game game;
+    private Service<Boolean> gameService;
+
+    private void startNewGame() {
+        game = new Game();
+        game.start();
+        gameService = new Service<Boolean>() {
+
+            @Override
+            protected Task<Boolean> createTask() {
+                return new Task<Boolean>() {
+
+                    @Override
+                    protected Boolean call() throws Exception {
+                        return game.nextLoop();
+                    }
+                };
+            }
+        };
+        gameService.setOnSucceeded((WorkerStateEvent event1) -> {
+            updateContent();
+            Boolean flag = (Boolean) event1.getSource().getValue();
+            if (flag) {
+                gameService.restart();
+            } else {
+                AddPersonDialogController.setScore(game.getPlayerA().getScore());
+                AddPersonDialog.getAddpersonstage().show();
+            }
+        });
+        updateContent();
+        gameService.start();
+    }
 
     public void updateContent() {
         mainPane.getChildren().clear();
@@ -116,5 +134,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
     }
 }
