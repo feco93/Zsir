@@ -43,7 +43,7 @@ public class ScoreTableController {
      * Starts the score table service.
      */
     public void initialize() {
-        scoreservice.start();
+        scoreservice.restart();
         scoreservice.setOnSucceeded((WorkerStateEvent event) -> {
             tableview.setItems((ObservableList<Person>)event.getSource().getValue());
         });

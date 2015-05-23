@@ -36,14 +36,9 @@ import javafx.stage.StageStyle;
 public class ScoreTableDialog extends Stage {
 
     /**
-     * The score table dialog.
-     */
-    private static final ScoreTableDialog dialog = new ScoreTableDialog();
-
-    /**
      * Constructs the score table dialog.
      */
-    private ScoreTableDialog() {
+    public ScoreTableDialog() {
         super();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/scoreWindow.fxml"));
@@ -58,15 +53,6 @@ public class ScoreTableDialog extends Stage {
         } catch (IOException ex) {
             Logger.getLogger(ScoreTableDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /**
-     * Gets the score table dialog.
-     * 
-     * @return the score table dialog
-     */
-    public static ScoreTableDialog getDialog() {
-        return dialog;
     }
 
 }

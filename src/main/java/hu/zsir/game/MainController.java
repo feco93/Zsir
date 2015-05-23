@@ -100,7 +100,7 @@ public class MainController {
      */
     @FXML
     public void showScoreDialog() {
-        ScoreTableDialog scoredialog = ScoreTableDialog.getDialog();
+        ScoreTableDialog scoredialog = new ScoreTableDialog();
         scoredialog.show();
     }
 
