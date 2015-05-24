@@ -2,5 +2,3 @@
 .project
 .settings/
 target/
-dependency-reduced-pom.xml
-trace.log

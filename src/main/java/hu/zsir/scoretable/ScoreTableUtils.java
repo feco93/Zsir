@@ -236,8 +236,8 @@ public class ScoreTableUtils {
         
         if (!Files.exists(dtdPath)) {
             try {
-                Files.copy(ScoreTableUtils.class.getResourceAsStream("/files/scoretable.dtd"), dtdPath);
-            } catch (IOException ex) {
+                Files.copy(Paths.get(ScoreTableUtils.class.getResource("/files/scoretable.dtd").toURI()), dtdPath);
+            } catch (IOException | URISyntaxException ex) {
                 Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
             }
         }        
