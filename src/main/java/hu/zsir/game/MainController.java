@@ -37,7 +37,7 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  * Controls the main window.
- * 
+ *
  * @author Feco
  */
 public class MainController {
@@ -55,7 +55,7 @@ public class MainController {
 
     /**
      * Starts a new game.
-     * 
+     *
      * @param event an event that occured on the new game menu item
      */
     @FXML
@@ -75,8 +75,8 @@ public class MainController {
 
     /**
      * Terminates the process.
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void exit(ActionEvent event) {
@@ -85,12 +85,12 @@ public class MainController {
 
     /**
      * Checks if the check operator is applicable.
-     * 
+     *
      * @param event an event that occured on the check button
      */
     @FXML
     private void check(ActionEvent event) {
-        if (CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
+        if (game != null && CheckOperator.getCheckoperator().isApplicable(game) && game.getCurrentplayer().isHuman()) {
             CheckOperator.getCheckoperator().apply(game);
         }
     }
