@@ -22,7 +22,7 @@ import java.util.Random;
 
 /**
  * Model class for a computer player.
- * 
+ *
  * @author Feco
  */
 public class Computer extends Player {
@@ -186,7 +186,7 @@ public class Computer extends Player {
     }
 
     /**
-     * Sets the checked property to true.
+     * Sets the value of the property checked to true.
      */
     @Override
     public void check() {
@@ -195,7 +195,7 @@ public class Computer extends Player {
 
     /**
      * Chooses an operator.
-     * 
+     *
      * @param game the state of the game
      */
     @Override
@@ -205,8 +205,8 @@ public class Computer extends Player {
 
     /**
      * Indicates whether this player is human.
-     * 
-     * @return returns false 
+     *
+     * @return returns false
      */
     @Override
     public boolean isHuman() {
@@ -215,7 +215,7 @@ public class Computer extends Player {
 
     /**
      * Adds cards to the cards of this player.
-     * 
+     *
      * @param cards the list of cards to be added to the cards of this player
      */
     @Override

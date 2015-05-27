@@ -81,7 +81,7 @@ public class Human extends Player {
 
     /**
      * Indicates whether this player is human.
-     * 
+     *
      * @return returns true
      */
     @Override

@@ -20,12 +20,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -41,6 +38,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
@@ -55,6 +53,8 @@ import org.xml.sax.XMLReader;
  * @author Feco
  */
 public class ScoreTableUtils {
+
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ScoreTableDialog.class);
 
     /**
      * The source xml file of the score table.
@@ -76,7 +76,7 @@ public class ScoreTableUtils {
     }
 
     /**
-     * Inits the xml file.
+     * Initializes the xml file.
      */
     private static void initFile() {
         try {
@@ -88,7 +88,7 @@ public class ScoreTableUtils {
             doc.appendChild(rootElement);
             write(doc);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the xml file initialization", ex);
         }
 
     }
@@ -122,7 +122,7 @@ public class ScoreTableUtils {
 
             write(doc);
         } catch (ParserConfigurationException | JAXBException | SAXException | FileNotFoundException ex) {
-            Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the adding a person to the xml file.", ex);
         }
     }
 
@@ -143,7 +143,7 @@ public class ScoreTableUtils {
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             transformer.transform(source, result);
         } catch (TransformerException ex) {
-            Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the writing the xml file.", ex);
         }
     }
 
@@ -158,7 +158,7 @@ public class ScoreTableUtils {
             XMLFile = path.toFile();
             initFile();
         } catch (IOException ex) {
-            Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the creating the xml file.", ex);
         }
     }
 
@@ -188,7 +188,7 @@ public class ScoreTableUtils {
             });
             Document doc = builder.parse(XMLFile);
         } catch (ParserConfigurationException | SAXException | IOException ex) {
-            Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the validating the xml file.", ex);
         }
     }
 
@@ -220,28 +220,30 @@ public class ScoreTableUtils {
     }
 
     /**
-     * Inits the environment of the score table.
+     * Initializes the environment of the score table.
      */
     private static void initEnvironment() {
         Path dtdPath = Paths.get(mainDir.toString(), "scoretable.dtd");
         Path xmlPath = Paths.get(mainDir.toString(), "scoretable.xml");
-        
+
         if (!Files.exists(mainDir)) {
             try {
                 Files.createDirectory(mainDir);
             } catch (IOException ex) {
-                Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("An error occured during the creating the main directory of the game.", ex);
             }
         }
-        
+
         if (!Files.exists(dtdPath)) {
             try {
                 Files.copy(ScoreTableUtils.class.getResourceAsStream("/files/scoretable.dtd"), dtdPath);
             } catch (IOException ex) {
-                Logger.getLogger(ScoreTableUtils.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error(
+                        "An error occured during the copying the dtd file into the main directory of the game.",
+                        ex);
             }
-        }        
-        
+        }
+
         if (!Files.exists(xmlPath)) {
             createXml(xmlPath);
         } else {

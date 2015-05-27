@@ -17,11 +17,12 @@
 package hu.zsir.game.model;
 
 /**
- * The representation of Hungarian card's number property.
- * 
+ * The representation of the Hungarian card's number property.
+ *
  * @author Feco
  */
 public enum Rank {
+
     /**
      * The Also rank.
      */

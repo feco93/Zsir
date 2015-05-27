@@ -36,8 +36,8 @@ public class CardsOnTable {
 
     /**
      * Constructs the card views which are on the table.
-     * 
-     * @param game 
+     *
+     * @param game
      */
     public CardsOnTable(Game game) {
         cards = FXCollections.observableArrayList();
@@ -59,7 +59,7 @@ public class CardsOnTable {
 
     /**
      * Gets the card views which are on the table.
-     * 
+     *
      * @return the observablelist of the card views
      */
     public ObservableList<ImageView> getCards() {

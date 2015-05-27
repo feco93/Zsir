@@ -76,7 +76,7 @@ public class MainController {
     /**
      * Terminates the process.
      *
-     * @param event
+     * @param event an event that occured on the exit game menu item
      */
     @FXML
     private void exit(ActionEvent event) {

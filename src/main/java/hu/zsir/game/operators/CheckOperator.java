@@ -21,6 +21,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A model class for the check operator.
+ *
+ * The check operator sets the value of the property check of the current player
+ * to true.
  *
  * @author Feco
  */
@@ -45,7 +49,8 @@ public class CheckOperator implements Operator {
     }
 
     /**
-     * Applies the check operator on the specified state of the game.
+     * Applies the check operator on the specified state of the
+     * <code>game</code>.
      *
      * @param game the state of the game
      */
@@ -58,7 +63,7 @@ public class CheckOperator implements Operator {
 
     /**
      * Gets the check operator.
-     * 
+     *
      * @return the check operator
      */
     public static CheckOperator getCheckoperator() {
@@ -67,7 +72,7 @@ public class CheckOperator implements Operator {
 
     /**
      * Gets the string representation of the check operator.
-     * 
+     *
      * @return the string representation of the check operator
      */
     @Override

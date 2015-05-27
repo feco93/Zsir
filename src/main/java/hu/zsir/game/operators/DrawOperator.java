@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A model class for draw operator.
+ * A model class for the draw operator.
  *
  * The draw operator draws cards from the table.
  *
@@ -48,7 +48,8 @@ public class DrawOperator implements Operator {
     }
 
     /**
-     * Applies the draw operator on the specified state of the game.
+     * Applies the draw operator on the specified state of the
+     * <code>game</code>.
      *
      * @param game the state of the game
      */
@@ -58,7 +59,8 @@ public class DrawOperator implements Operator {
         game.getNextplayer().addCards(game.getDeck().getCards(4 - game.getNextplayer().cards.size()));
         logger.trace("Apply draw operator.");
     }
-/**
+
+    /**
      * Gets the draw operator.
      *
      * @return the draw operator
@@ -69,7 +71,7 @@ public class DrawOperator implements Operator {
 
     /**
      * Gets the string representation of the draw operator.
-     * 
+     *
      * @return the string representation of the draw operator
      */
     @Override

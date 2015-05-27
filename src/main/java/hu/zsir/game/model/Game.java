@@ -28,9 +28,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * Model class for game.
+ * Model class for a game.
  *
  * @author Feco
  */
@@ -169,8 +168,7 @@ public class Game {
             String player;
             if (getCurrentplayer().isHuman()) {
                 player = "Human the current player";
-            }
-            else {
+            } else {
                 player = "Computer the current player";
             }
             logger.trace(player);

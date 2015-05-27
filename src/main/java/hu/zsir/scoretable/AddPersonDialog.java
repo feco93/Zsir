@@ -18,8 +18,6 @@ package hu.zsir.scoretable;
 
 import static hu.zsir.game.Main.mainWindow;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,13 +25,17 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A stage for add a person into the score tabe.
- * 
+ *
  * @author Feco
  */
 public class AddPersonDialog extends Stage {
+
+    private static final Logger logger = LoggerFactory.getLogger(AddPersonDialog.class);
 
     /**
      * The add person stage.
@@ -56,13 +58,13 @@ public class AddPersonDialog extends Stage {
             initModality(Modality.WINDOW_MODAL);
             getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         } catch (IOException ex) {
-            Logger.getLogger(AddPersonDialogController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the loading of the person adder window.", ex);
         }
     }
 
     /**
      * Gets the add person stage.
-     * 
+     *
      * @return the add person stage
      */
     public static AddPersonDialog getAddpersonstage() {

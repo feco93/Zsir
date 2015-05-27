@@ -22,11 +22,11 @@ import javafx.scene.image.ImageView;
 
 /**
  * Class for the card view.
- * 
+ *
  * @author Feco
  */
 public class CardView extends ImageView {
-    
+
     /**
      * The image of the card.
      */
@@ -34,14 +34,13 @@ public class CardView extends ImageView {
 
     /**
      * Constructs the view from the specified card.
-     * 
+     *
      * @param card the specified card
      */
     public CardView(Card card) {
         if (card.isFaceup()) {
             cardimage = new Image(getClass().getResourceAsStream("/images/" + card.toString() + ".jpg"));
-        }
-        else {
+        } else {
             cardimage = new Image(getClass().getResourceAsStream("/images/hatlap.jpg"));
         }
         setImage(cardimage);

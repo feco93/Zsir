@@ -18,8 +18,6 @@ package hu.zsir.scoretable;
 
 import static hu.zsir.game.Main.mainWindow;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,13 +25,16 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.slf4j.LoggerFactory;
 
 /**
  * A stage for display the score table.
- * 
+ *
  * @author Feco
  */
 public class ScoreTableDialog extends Stage {
+
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ScoreTableDialog.class);
 
     /**
      * Constructs the score table dialog.
@@ -51,7 +52,7 @@ public class ScoreTableDialog extends Stage {
             setTitle("Score table");
             getIcons().add(new Image(getClass().getResource("/images/Zsir.ico").toString()));
         } catch (IOException ex) {
-            Logger.getLogger(ScoreTableDialog.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("An error occured during the loading the score table window.", ex);
         }
     }
 

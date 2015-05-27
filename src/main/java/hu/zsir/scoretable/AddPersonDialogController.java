@@ -36,7 +36,7 @@ public class AddPersonDialogController {
 
     /**
      * Sets the value of the score.
-     * 
+     *
      * @param score the specified score
      */
     public static void setScore(int score) {

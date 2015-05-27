@@ -24,9 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A model class for beat operator.
+ * A model class for the beat operator.
  *
- * The beat operator beats the cards on the table.
+ * The beat operator removes the cards from the table and computes the score.
  *
  * @author Feco
  */
@@ -52,7 +52,8 @@ public class BeatOperator implements Operator {
     }
 
     /**
-     * Applies the beat operator on the specified state of the game.
+     * Applies the beat operator on the specified state of the
+     * <code>game</code>.
      *
      * @param game the state of the game
      */
@@ -94,7 +95,7 @@ public class BeatOperator implements Operator {
 
     /**
      * Gets the string representation of the beat operator.
-     * 
+     *
      * @return the string representation of the beat operator
      */
     @Override

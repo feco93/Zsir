@@ -19,25 +19,25 @@ package hu.zsir.game.operators;
 import hu.zsir.game.model.Game;
 
 /**
- * A model interface for operator.
- * 
+ * A model interface for an operator.
+ *
  * An operator change the state of the game if the operator is applicable.
- * 
+ *
  * @author Feco
  */
 public interface Operator {
 
     /**
      * Inidicates whether the operator is applicable.
-     * 
+     *
      * @param game the state of the game
      * @return true if the operator is applicable
      */
     public boolean isApplicable(Game game);
 
     /**
-     * Applies the operator on the specified state of the game.
-     * 
+     * Applies the operator on the specified state of the <code>game</code>.
+     *
      * @param game the state of the game
      */
     public void apply(Game game);

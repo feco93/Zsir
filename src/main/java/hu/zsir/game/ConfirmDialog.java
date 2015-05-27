@@ -21,7 +21,7 @@ import javafx.scene.control.Dialog;
 
 /**
  * A dialog for confirm to begin a new game.
- * 
+ *
  * @author Feco
  */
 public class ConfirmDialog extends Dialog<ButtonType> {
@@ -46,7 +46,7 @@ public class ConfirmDialog extends Dialog<ButtonType> {
 
     /**
      * Gets the confirm dialog.
-     * 
+     *
      * @return the confirm dialog
      */
     public static ConfirmDialog getDialog() {

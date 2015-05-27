@@ -23,30 +23,30 @@ import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class for controlling score table window.
- * 
+ *
  * @author Feco
  */
 public class ScoreTableController {
-    
+
     /**
      * The table view of the persons.
      */
     @FXML
     private TableView<Person> tableview;
-    
+
     /**
      * The score table service.
      */
     private final ScoreTable scoreservice = new ScoreTable();
-    
+
     /**
      * Starts the score table service.
      */
     public void initialize() {
-        scoreservice.restart();
+        scoreservice.start();
         scoreservice.setOnSucceeded((WorkerStateEvent event) -> {
-            tableview.setItems((ObservableList<Person>)event.getSource().getValue());
+            tableview.setItems((ObservableList<Person>) event.getSource().getValue());
         });
     }
-    
+
 }

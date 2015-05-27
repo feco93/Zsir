@@ -19,8 +19,6 @@ package hu.zsir.scoretable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -28,6 +26,7 @@ import javafx.concurrent.Task;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -35,25 +34,23 @@ import org.xml.sax.SAXException;
 
 /**
  * Service for parsing the score table xml file.
- * 
+ *
  * @author Feco
  */
 public class ScoreTable extends Service<ObservableList<Person>> {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ScoreTable.class);
+
     /**
-     * Creates the specified task.
-     * 
+     * Creates the specified task, which is return the observablelist of the
+     * persons.
+     *
      * @return the executable task
      */
     @Override
     protected Task<ObservableList<Person>> createTask() {
         return new Task<ObservableList<Person>>() {
 
-            /**
-             * Executes the task.
-             * 
-             * @return an observable list of persons             
-             */
             @Override
             protected ObservableList<Person> call() {
                 List<Person> persons = new ArrayList<>();
@@ -73,7 +70,7 @@ public class ScoreTable extends Service<ObservableList<Person>> {
                     }
 
                 } catch (ParserConfigurationException | SAXException | IOException ex) {
-                    Logger.getLogger(ScoreTableController.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error("An error occured during the parsing of the score table xml file.", ex);
                 }
                 ObservableList<Person> list = FXCollections.observableArrayList(persons);
                 return list;

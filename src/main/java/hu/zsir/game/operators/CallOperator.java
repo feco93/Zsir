@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A model class for call operator.
+ * A model class for the call operator.
  *
  * The call operator call a card into the table.
  *
@@ -54,7 +54,8 @@ public class CallOperator implements Operator {
     }
 
     /**
-     * Applies the call operator on the specified state of the game.
+     * Applies the call operator on the specified state of the
+     * <code>game</code>.
      *
      * @param game the state of the game
      */

@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * A model class for Person.
- * 
+ *
  * @author Feco
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,7 +42,7 @@ public class Person {
 
     /**
      * Constructs a new Person object with the specified parameters.
-     * 
+     *
      * @param name the name of the person
      * @param score the score of the person
      * @param date the date of the game
@@ -61,7 +61,7 @@ public class Person {
 
     /**
      * Gets the name of the person.
-     * 
+     *
      * @return the name of the person
      */
     public String getName() {
@@ -70,7 +70,7 @@ public class Person {
 
     /**
      * Sets the name of the person with the specified value.
-     * 
+     *
      * @param name the specified name
      */
     public void setName(String name) {
@@ -79,7 +79,7 @@ public class Person {
 
     /**
      * Gets the score of the person.
-     * 
+     *
      * @return the score of the person
      */
     public Integer getScore() {
@@ -88,7 +88,7 @@ public class Person {
 
     /**
      * Sets the score with the specified value.
-     * 
+     *
      * @param score the specified score
      */
     public void setScore(Integer score) {
@@ -97,7 +97,7 @@ public class Person {
 
     /**
      * Gets the date of the game.
-     * 
+     *
      * @return the date of the game
      */
     public String getDate() {
@@ -106,7 +106,7 @@ public class Person {
 
     /**
      * Sets the date of the game with the specified date.
-     * 
+     *
      * @param date the specified date
      */
     public void setDate(String date) {

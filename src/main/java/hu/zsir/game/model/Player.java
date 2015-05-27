@@ -136,7 +136,8 @@ public abstract class Player {
     }
 
     /**
-     * Sets the check field with the specified flag.
+     * Sets the value of the property checked to the specified <code>flag</code>
+     * value.
      *
      * @param flag the new value of the check field
      */
@@ -151,30 +152,29 @@ public abstract class Player {
 
     /**
      * Abstract method for choosing card.
-     * 
+     *
      * @param game state of the game
      */
-
     public abstract void chooseCard(Game game);
 
     /**
      * Abstract method for set choosed card.
-     * 
+     *
      * @param card card to be choosed
      */
     public abstract void setChoosedCard(Card card);
 
     /**
      * Abstract method for choosing operator.
-     * 
+     *
      * @param game state of the game
      */
     public abstract void chooseOperator(Game game);
 
     /**
      * Abstract method for indicate whether this player is human.
-     * 
-     * @return true if this player is human 
+     *
+     * @return true if this player is human
      */
     public abstract boolean isHuman();
 

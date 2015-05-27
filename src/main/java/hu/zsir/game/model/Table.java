@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Model class for table.
- * 
+ * Model class for a table.
+ *
  * @author Feco
  */
 public class Table {
@@ -40,7 +40,7 @@ public class Table {
 
     /**
      * Gets the cards from this table.
-     * 
+     *
      * @return the list of cards on this table
      */
     public List<Card> getCards() {
@@ -49,7 +49,7 @@ public class Table {
 
     /**
      * Adds the specified card to the cards of this table.
-     * 
+     *
      * @param card card to be added to the cards of this table
      */
     public void addCard(Card card) {
@@ -65,7 +65,7 @@ public class Table {
 
     /**
      * Gets the bottom card from the cards of this table.
-     * 
+     *
      * @return the bottom card from the cards of this table
      */
     public Card getBottomCard() {
@@ -78,7 +78,7 @@ public class Table {
 
     /**
      * Gets the top card from the cards of this table.
-     * 
+     *
      * @return the top card from the cards of this table
      */
     public Card getTopCard() {

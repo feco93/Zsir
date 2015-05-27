@@ -37,7 +37,8 @@ public class Card {
     private boolean faceup = true;
 
     /**
-     * Constructs a new Card object with specified suit and number.
+     * Constructs a new Card object with the specified <code>suit</code> and
+     * <code>rank</code>.
      *
      * @param rank number property of this card
      * @param suit suit property of this card
@@ -72,9 +73,10 @@ public class Card {
     public void turnDown() {
         faceup = false;
     }
+
     /**
      * Sets the value of the property face up to true.
-     * 
+     *
      */
 
     public void turnUp() {
@@ -83,19 +85,18 @@ public class Card {
 
     /**
      * Gets the value of the property face up.
-     * 
-     * @return indicates whether the card is face up 
+     *
+     * @return indicates whether the card is face up
      */
     public boolean isFaceup() {
         return faceup;
     }
 
-    
     /**
      * Returns the string representation of this card.
-     * 
+     *
      * @return the string representation of this card in the form
-	 *         <span><em>suit</em><code>_</code><em>number</em></span>
+     * <span><em>suit</em><code>_</code><em>rank</em></span>
      */
     @Override
     public String toString() {

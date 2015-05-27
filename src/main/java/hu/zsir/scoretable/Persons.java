@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * A model class for Persons, which is stored in score table.
- * 
+ *
  * @author Feco
  */
 @XmlRootElement(name = "scoretable")
@@ -46,9 +46,9 @@ public class Persons {
     }
 
     /**
-     * Constructs a new Persons object with the specified list of persons.
-     * 
-     * @param persons the specified list of persons
+     * Constructs a new Persons object with the specified list of the persons.
+     *
+     * @param persons the specified list of the persons
      */
     public Persons(List<Person> persons) {
         this.persons = persons;
@@ -56,25 +56,25 @@ public class Persons {
 
     /**
      * Gets the persons.
-     * 
-     * @return the list of persons
+     *
+     * @return the list of the persons
      */
     public List<Person> getPersons() {
         return persons;
     }
 
     /**
-     * Sets the persons with the specified list of persons.
-     * 
-     * @param persons the specified list of persons
+     * Sets the persons with the specified list of the persons.
+     *
+     * @param persons the specified list of the persons
      */
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-    
+
     /**
-     * Adds the specified person to the list of persons.
-     * 
+     * Adds the specified person to the list of the persons.
+     *
      * @param person the specified person
      */
     public void addPerson(Person person) {

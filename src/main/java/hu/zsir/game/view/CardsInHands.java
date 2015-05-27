@@ -24,7 +24,7 @@ import javafx.scene.image.ImageView;
 
 /**
  * Class for displaying the cards of the players.
- * 
+ *
  * @author Feco
  */
 public class CardsInHands {
@@ -36,7 +36,7 @@ public class CardsInHands {
 
     /**
      * Constructs the card views which are in the players hands.
-     * 
+     *
      * @param game the state of the game
      */
     public CardsInHands(Game game) {
@@ -68,7 +68,7 @@ public class CardsInHands {
 
     /**
      * Gets the card views which are in the players hands.
-     * 
+     *
      * @return the observablelist of the card views
      */
     public ObservableList<ImageView> getCards() {

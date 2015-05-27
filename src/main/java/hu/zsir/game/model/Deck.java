@@ -90,16 +90,16 @@ public class Deck {
 
     /**
      * Indicates whether the deck is empty.
-     * 
+     *
      * @return true if this deck is empty
      */
     public boolean isEmpty() {
         return remainingcards == 0;
     }
-    
+
     /**
      * Gets the actual number of the cards in the deck.
-     * 
+     *
      * @return number of the cards
      */
     public int getSize() {
