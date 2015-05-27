@@ -61,12 +61,12 @@ public class CallOperator implements Operator {
      */
     @Override
     public void apply(Game game) {
+	logger.trace("Apply call operator.");
         Card card = game.getCurrentplayer().putCard();
         card.turnUp();
         game.getTable().addCard(card);
         game.getCurrentplayer().setChoosedCard(null);
-        game.swapPlayers();
-        logger.trace("Apply call operator.");
+        game.swapPlayers();        
     }
 
     /**

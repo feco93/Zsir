@@ -31,10 +31,28 @@
 	</appender>
 
 	<!--
+		Az állományba csak adott szintű eseményeket naplózunk (a
+		jelenlegi beállítás esetén csak TRACE szintű eseményeket)
+	-->
+	<appender name="ERROR" class="ch.qos.logback.core.FileAppender">
+		<file>trace.log</file>
+		<append>false</append>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--
 		A gyökér logger mindent az állományokba naplóz
 	-->
 	<root level="ALL">
 		<appender-ref ref="TRACE"/>
+		<appender-ref ref="ERROR"/>
 	</root>
 
 </configuration>

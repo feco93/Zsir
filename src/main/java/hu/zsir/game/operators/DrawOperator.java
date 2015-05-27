@@ -55,9 +55,9 @@ public class DrawOperator implements Operator {
      */
     @Override
     public void apply(Game game) {
+	logger.trace("Apply draw operator.");
         game.getCurrentplayer().addCards(game.getDeck().getCards(4 - game.getCurrentplayer().cards.size()));
-        game.getNextplayer().addCards(game.getDeck().getCards(4 - game.getNextplayer().cards.size()));
-        logger.trace("Apply draw operator.");
+        game.getNextplayer().addCards(game.getDeck().getCards(4 - game.getNextplayer().cards.size()));        
     }
 
     /**

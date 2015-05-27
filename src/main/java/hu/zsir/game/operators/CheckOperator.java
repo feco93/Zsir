@@ -56,9 +56,9 @@ public class CheckOperator implements Operator {
      */
     @Override
     public void apply(Game game) {
+	logger.trace("Apply check operator.");
         game.getCurrentplayer().check();
-        game.swapPlayers();
-        logger.trace("Apply check operator.");
+        game.swapPlayers();        
     }
 
     /**
