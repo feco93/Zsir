@@ -59,13 +59,13 @@ public class BeatOperator implements Operator {
      */
     @Override
     public void apply(Game game) {
-	logger.trace("Apply beat operator.");
+        logger.trace("Apply beat operator.");
         game.getCurrentplayer().addScore(computeScore(game.getTable().getCards()));
         game.getNextplayer().setCheck(false);
         game.getTable().clear();
         if (DrawOperator.getDrawoperator().isApplicable(game)) {
             DrawOperator.getDrawoperator().apply(game);
-        }        
+        }
     }
 
     /**

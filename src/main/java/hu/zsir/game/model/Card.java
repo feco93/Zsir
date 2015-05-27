@@ -78,7 +78,6 @@ public class Card {
      * Sets the value of the property face up to true.
      *
      */
-
     public void turnUp() {
         faceup = true;
     }
